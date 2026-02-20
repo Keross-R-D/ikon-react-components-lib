@@ -1,0 +1,68 @@
+import { createContext, useContext, useState } from 'react';
+import type { ReactNode } from 'react';
+
+// Define the type for a breadcrumb item
+export interface BreadcrumbItemProps {
+  title: string;
+  href?: string;
+  level: number;
+}
+
+// Define the type for the context state
+interface BreadcrumbContextType {
+  breadcrumbItems: BreadcrumbItemProps[];
+  addBreadcrumb: (item: BreadcrumbItemProps) => void;
+  backBreadcrumb: (item: BreadcrumbItemProps) => void;
+  addBreadcrumbItems: (items: BreadcrumbItemProps[], isReplace?: boolean) => void;
+  clearBreadcrumb: () => void;
+}
+
+// Create the context with a default value
+const BreadcrumbContext = createContext<BreadcrumbContextType | undefined>(undefined);
+
+// Create a provider component
+export function BreadcrumbProvider({ children }: { children: ReactNode }) {
+  const [breadcrumbItems, setBreadcrumbItems] = useState<BreadcrumbItemProps[]>([]);
+  // Function to add a breadcrumb item
+  const addBreadcrumb = (item: BreadcrumbItemProps) => {
+    setBreadcrumbItems((prevItems) => {
+      const filterState = prevItems.filter((e) => e.level < item.level);
+      return [...filterState, item];
+    });
+  };
+
+  const addBreadcrumbItems = (items: BreadcrumbItemProps[], isReplace?: boolean) => {
+    if (isReplace) {
+      setBreadcrumbItems(items);
+    } else {
+      setBreadcrumbItems((prevItems) => [...prevItems, ...items]);
+    }
+  };
+
+  // Function to go back in the breadcrumb
+  const backBreadcrumb = (item: BreadcrumbItemProps) => {
+    setBreadcrumbItems((prevItems) => {
+      const filterState = prevItems.filter((e) => e.level <= item.level);
+      return [...filterState];
+    });
+  };
+
+  const clearBreadcrumb = () => {
+    setBreadcrumbItems([]);
+  };
+
+  return (
+    <BreadcrumbContext.Provider value={{ breadcrumbItems, addBreadcrumb, backBreadcrumb, addBreadcrumbItems, clearBreadcrumb }}>
+      {children}
+    </BreadcrumbContext.Provider>
+  );
+}
+
+// Custom hook to use the BreadcrumbContext
+export function useBreadcrumb() {
+  const context = useContext(BreadcrumbContext);
+  if (!context) {
+    throw new Error('useBreadcrumb must be used within a BreadcrumbProvider');
+  }
+  return context;
+}
