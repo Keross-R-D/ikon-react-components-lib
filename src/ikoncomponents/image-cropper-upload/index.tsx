@@ -1,8 +1,7 @@
-"use client"
 
-import React, { createContext, ReactNode, useContext, useEffect, useState } from 'react'
+import React, { createContext, type ReactNode, useContext, useEffect, useState } from 'react'
 import { CropperFormWithModal } from './cropper-form-with-modal'
-import { CropperUploadImagesInfoProps, uploadedImagesToCropperImgObj } from './utils';
+import { type CropperUploadImagesInfoProps, uploadedImagesToCropperImgObj } from './utils';
 
 
 export interface ImageCropperContextProps {

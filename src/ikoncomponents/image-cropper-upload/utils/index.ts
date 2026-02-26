@@ -2,8 +2,8 @@ import {
   base64FileUpload,
   singleFileUpload,
 } from "../../../utils/api/file-upload";
-import { AspectRatioWiseImagesProps, OriginalImageProps } from "..";
-import { FileinfoProps } from "../../../utils/api/file-upload/type";
+import type { AspectRatioWiseImagesProps, OriginalImageProps } from "..";
+import type { FileinfoProps } from "../../../utils/api/file-upload/type";
 import { getResourceUrl } from "../../../utils/actions/common/utils";
 
 export interface CropperUploadImagesInfoProps {
