@@ -1,6 +1,8 @@
 import "./styles.css";
+import { useState } from "react";
 import { ProviderWrapper } from "./ikoncomponents/provider-wrapper";
 import { setIkonConfig } from "./utils/config";
+import { UploadTab } from "./ikoncomponents/upload-tab";
 import type { DTExtraParamsProps } from "./ikoncomponents/data-table/type";
 import { EChart } from "./ikoncomponents/e-chart";
 import { FileUploader } from "./ikoncomponents/fileUpload";
@@ -154,8 +156,10 @@ function App() {
         {/* <LoadingSpinner /> */}
           <AssistantComponent className="h-2/3" appId="9f3a7c2e-5b41-4d8a-9c6e-1a72f8e3b4c9" currentUserDetails={userData} baseUrl="http://localhost:3001"/>
           {/* </div> */}
+        <UploadTab />
       </ProviderWrapper>
     </>
+
   );
 }
 
