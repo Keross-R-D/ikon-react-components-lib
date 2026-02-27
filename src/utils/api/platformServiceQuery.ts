@@ -3,7 +3,7 @@ import axiosInstance from "./axiosAuth";
 import type { User } from "@/types/user";
 import type { Account } from "@/types/account";
 import { getConfig } from "@/utils/config";
-import type { AccountMembership } from "@/ikoncomponents/main-layout/main-sidebar";
+import type { Software, AccountMembership } from "@/ikoncomponents/main-layout/main-sidebar";
 
 export function useProfileQuery(userId?: string) {
   return useQuery<User>({
@@ -69,4 +69,16 @@ export function useAccountMembership() {
       return data;
     },
   });
+}
+
+export function useAllSoftwaresQuery() {
+  return useQuery<Software[]>({
+    queryKey: ["softwares"],
+    queryFn: async () => {
+      const {data} = await axiosInstance.get<Software[]>(
+        `${getConfig().IKON_BASE_API_URL}/platform/software/accessible/user`,
+      );
+      return data;
+    },
+  })
 }

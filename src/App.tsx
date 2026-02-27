@@ -1,16 +1,8 @@
 import "./styles.css";
 import { ProviderWrapper } from "./ikoncomponents/provider-wrapper";
 import { setIkonConfig } from "./utils/config";
-import { SheetComponent } from "./ikoncomponents/sheet";
-import { NoDataComponent } from "./ikoncomponents/no-data";
-import { ActivitySheet } from "./ikoncomponents/activity-sheet";
-import { CustomTabs } from "./ikoncomponents/tabs";
-import { UploadTab } from "./ikoncomponents/upload-tab";
-import { DataTable } from "./ikoncomponents/data-table";
-import type { ColumnDef } from "@tanstack/react-table";
 import type { DTExtraParamsProps } from "./ikoncomponents/data-table/type";
 import { EChart } from "./ikoncomponents/e-chart";
-import { FileInput } from "./ikoncomponents/file-input";
 import { FileUploader } from "./ikoncomponents/fileUpload";
 import { FormComboboxInput } from "./ikoncomponents/form-fields/combobox-input";
 import { Form } from "./shadcn/ui/form";
@@ -19,13 +11,11 @@ import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormInput } from "./ikoncomponents/form-fields/input";
 import { FormDateInput } from "./ikoncomponents/form-fields/date-input";
-import { FormFileInput } from "./ikoncomponents/form-fields/file-input";
 import { FormOtpInput } from "./ikoncomponents/form-fields/otp-input";
 import { FormPasswordInput } from "./ikoncomponents/form-fields/password-input";
 import { FormTextarea } from "./ikoncomponents/form-fields/textarea";
 import { GlowingEffect } from "./ikoncomponents/glowing-effect";
-import { ImageCropper } from "./ikoncomponents/image-cropper-upload/image-cropper";
-import { LoadingSpinner } from "./ikoncomponents/loading-spinner";
+import { AssistantComponent } from "./ikoncomponents/assistant-ui/Assistant";
 
 setIkonConfig({
   IKON_BASE_API_URL: "https://ikoncloud-dev.keross.com/ikon-api",
@@ -108,6 +98,20 @@ function App() {
     },
   });
 
+    const userData = {
+    userId: "u-98234",
+    userName: "Alex Rivera",
+    userLogin: "arivera_dev",
+    password: "hashed_password_123",
+    userPhone: "+1-555-010-9988",
+    userEmail: "alex.rivera@example.com",
+    userThumbnail: "https://api.dicebear.com/7.x/avataaars/svg?seed=Alex",
+    userType: "Admin",
+    active: true,
+    accountId: "acc-4402",
+    userDeleted: false,
+  };
+
   return (
     <>
       <ProviderWrapper>
@@ -148,6 +152,8 @@ function App() {
           y: 0
         }} /> */}
         {/* <LoadingSpinner /> */}
+          <AssistantComponent className="h-2/3" appId="9f3a7c2e-5b41-4d8a-9c6e-1a72f8e3b4c9" currentUserDetails={userData} baseUrl="http://localhost:3001"/>
+          {/* </div> */}
       </ProviderWrapper>
     </>
   );
