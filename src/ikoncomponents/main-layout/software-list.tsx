@@ -8,8 +8,8 @@ import { useAllSoftwaresQuery } from "@/utils/api/platformServiceQuery";
 
 function SoftwareList() {
   const { IKON_PLATFORM_UI_URL } = getConfig();
-  const { data } = useAllSoftwaresQuery();
-  const softwares = data?.filter((item: { visible: boolean }) => item.visible);
+  const { data: softwares } = useAllSoftwaresQuery();
+
   function toPascalCase(icon: string) {
     return icon
       .split("-")
@@ -36,6 +36,7 @@ function SoftwareList() {
       </nav>
       <nav className="flex flex-col gap-1 flex-1">
         {softwares?.map((software) => {
+          if (!software.visible) return null;
           const hasIcon = Boolean(software.icon && software.icon.trim() !== "");
 
           return (

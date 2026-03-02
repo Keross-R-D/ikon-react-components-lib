@@ -25,7 +25,7 @@ setIkonConfig({
   LOGIN_PAGE_URL: "/login.html",
 });
 
-const workflowSchema = z.object({
+const workflowSchema = z.object({                                                                                                                           
   // name: z.string().min(1, "Name is required"),
   // version: z.number().int(),
   // isDeployed: z.boolean(),
