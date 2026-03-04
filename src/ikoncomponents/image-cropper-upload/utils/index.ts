@@ -1,10 +1,6 @@
-import {
-  base64FileUpload,
-  singleFileUpload,
-} from "../../../utils/api/file-upload";
 import type { AspectRatioWiseImagesProps, OriginalImageProps } from "..";
-import type { FileinfoProps } from "../../../utils/api/file-upload/type";
-import { getResourceUrl } from "../../../utils/actions/common/utils";
+import type { FileinfoProps } from "../../../utils/api/file/type";
+import { singleFileUpload, base64FileUpload, getResourceUrl } from "../../../utils/api/file";
 
 export interface CropperUploadImagesInfoProps {
   originalImageInfo?: FileinfoProps | null;
@@ -20,16 +16,14 @@ export interface UploadedImagesToCropperImgObjProps {
 }
 export async function imageCropperFilesUpload(
   originalImage: OriginalImageProps,
-  aspectRatioWiseImages?: AspectRatioWiseImagesProps,
-  resourceId?: string
+  aspectRatioWiseImages?: AspectRatioWiseImagesProps
 ): Promise<CropperUploadImagesInfoProps | null> {
   if (!originalImage.image) {
     return null;
   }
 
   const originalImageInfo = await singleFileUpload(
-    originalImage.image as File,
-    resourceId
+    originalImage.image as File
   );
 
   const cropperUploadImagesInfo: CropperUploadImagesInfoProps = {
