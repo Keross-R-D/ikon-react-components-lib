@@ -14,7 +14,7 @@ export interface ImageCropperContextProps {
 
 export interface AspectRatioWiseImagesProps {
     landscape: string | null;
-    potrait: string | null;
+    portrait: string | null;
     icon: string | null;
 }
 
@@ -38,7 +38,7 @@ export function ImageCropperProvider({ children, uploadedImages, onCropperChange
 
     const [aspectRatioWiseImages, setAspectRatioWiseImages] = useState<AspectRatioWiseImagesProps>({
         landscape: null,
-        potrait: null,
+        portrait: null,
         icon: null
     });
     const [originalImage, setOriginalImage] = useState<OriginalImageProps>({

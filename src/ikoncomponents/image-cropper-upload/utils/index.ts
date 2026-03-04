@@ -11,7 +11,7 @@ export interface CropperUploadImagesInfoProps {
   imageName?: string;
   imageDescription?: string;
   landscapeImageInfo?: FileinfoProps | null;
-  portaitImageInfo?: FileinfoProps | null;
+  portraitImageInfo?: FileinfoProps | null;
   iconImageInfo?: FileinfoProps | null;
 }
 export interface UploadedImagesToCropperImgObjProps {
@@ -37,7 +37,7 @@ export async function imageCropperFilesUpload(
     imageName: originalImage.name,
     imageDescription: originalImage.description,
     landscapeImageInfo: null,
-    portaitImageInfo: null,
+    portraitImageInfo: null,
     iconImageInfo: null,
   };
 
@@ -53,10 +53,10 @@ export async function imageCropperFilesUpload(
         console.error(error);
       }
     }
-    if (aspectRatioWiseImages.potrait) {
+    if (aspectRatioWiseImages.portrait) {
       try {
-        cropperUploadImagesInfo["portaitImageInfo"] = await base64FileUpload(
-          aspectRatioWiseImages.potrait,
+        cropperUploadImagesInfo["portraitImageInfo"] = await base64FileUpload(
+          aspectRatioWiseImages.portrait,
           originalImage.name + "_P.webp",
           "image/webp"
         );
@@ -93,8 +93,8 @@ export async function uploadedImagesToCropperImgObj(
   const landscapeImageUrl = uploadedImages.landscapeImageInfo
     ? await getResourceUrl(uploadedImages.landscapeImageInfo)
     : null;
-  const portaitImageUrl = uploadedImages.portaitImageInfo
-    ? await getResourceUrl(uploadedImages.portaitImageInfo)
+  const portraitImageUrl = uploadedImages.portraitImageInfo
+    ? await getResourceUrl(uploadedImages.portraitImageInfo)
     : null;
   const iconImageUrl = uploadedImages.iconImageInfo
     ? await getResourceUrl(uploadedImages.iconImageInfo)
@@ -108,7 +108,7 @@ export async function uploadedImagesToCropperImgObj(
     },
     aspectRatioWiseImages: {
       landscape: landscapeImageUrl,
-      potrait: portaitImageUrl,
+      portrait: portraitImageUrl,
       icon: iconImageUrl,
     },
   };
