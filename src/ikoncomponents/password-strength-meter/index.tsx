@@ -42,7 +42,7 @@ export const PasswordStrengthMeter = ({ value }: { value: string }) => {
 
   return (
     <>
-      <Progress value={num} indicatorColor={funcProgressColor()} />
+      <Progress value={num} className={funcProgressColor()} />
     </>
   );
 };

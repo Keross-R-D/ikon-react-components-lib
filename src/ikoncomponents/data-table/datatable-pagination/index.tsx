@@ -72,7 +72,7 @@ export function DataTablePagination<TData>({
             <div className="flex items-center gap-3">
               <IconButtonWithTooltip
                 tooltipContent="Go to first page"
-                size={"smIcon"}
+                size={"icon-sm"}
                 className="dark:bg-accent dark:text-accent-foreground keross:bg-card keross:text-foreground"
                 onClick={() => table.setPageIndex(0)}
                 disabled={!table.getCanPreviousPage()}
@@ -82,7 +82,7 @@ export function DataTablePagination<TData>({
 
               <IconButtonWithTooltip
                 tooltipContent="Go to previous page"
-                size={"smIcon"}
+                size={"icon-sm"}
                 className="dark:bg-accent dark:text-accent-foreground keross:bg-card keross:text-foreground"
                 onClick={() => table.previousPage()}
                 disabled={!table.getCanPreviousPage()}
@@ -92,7 +92,7 @@ export function DataTablePagination<TData>({
 
               <IconButtonWithTooltip
                 tooltipContent="Go to next page"
-                size={"smIcon"}
+                size={"icon-sm"}
                 className="dark:bg-accent dark:text-accent-foreground keross:bg-card keross:text-foreground"
                 onClick={() => table.nextPage()}
                 disabled={!table.getCanNextPage()}
@@ -102,7 +102,7 @@ export function DataTablePagination<TData>({
 
               <IconButtonWithTooltip
                 tooltipContent="Go to last page"
-                size={"smIcon"}
+                size={"icon-sm"}
                 className="dark:bg-accent dark:text-accent-foreground keross:bg-card keross:text-foreground"
                 onClick={() => table.setPageIndex(table.getPageCount() - 1)}
                 disabled={!table.getCanNextPage()}

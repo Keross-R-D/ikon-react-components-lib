@@ -23,7 +23,7 @@ export function SheetComponent({
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button variant='outline' className={buttonStyle} size={"smIcon"}>{buttonText}{buttonIcon}</Button>
+        <Button variant='outline' className={buttonStyle} size={"icon-sm"}>{buttonText}{buttonIcon}</Button>
       </SheetTrigger>
       <SheetContent className="p-4" >
         <SheetTitle>{sheetTitle}</SheetTitle>
