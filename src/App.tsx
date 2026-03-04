@@ -1,5 +1,4 @@
 import "./styles.css";
-import { useState } from "react";
 import { ProviderWrapper } from "./ikoncomponents/provider-wrapper";
 import { setIkonConfig } from "./utils/config";
 import { UploadTab } from "./ikoncomponents/upload-tab";

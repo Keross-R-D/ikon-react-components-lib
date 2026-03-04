@@ -2,7 +2,7 @@ import Cookies from 'js-cookie';
 
 const cookiePrefix = "ikoncloud_next_";
 
-interface CookieSessionOptionsProps {
+export interface CookieSessionOptionsProps {
   maxAge?: number,
   expires?: Date
 }

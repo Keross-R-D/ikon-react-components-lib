@@ -96,7 +96,7 @@ export function CustomTabs({
           {groupedTabs.length > 0 && (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <TextButton variant="outline" size='smIcon' className="mt-1">
+                <TextButton variant="outline" size='sm' className="mt-1">
                   <EllipsisVertical />
                 </TextButton>
               </DropdownMenuTrigger>
