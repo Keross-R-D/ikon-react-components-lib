@@ -156,9 +156,10 @@ const AttachmentUI: FC = () => {
         return "Document";
       case "file":
         return "File";
-      default:
-        const _exhaustiveCheck: never = type;
+      default:{
+        const _exhaustiveCheck: never = type as never;
         throw new Error(`Unknown attachment type: ${_exhaustiveCheck}`);
+      }
     }
   });
 

@@ -23,11 +23,11 @@ import { toast } from "sonner";
 import { FileInput } from "../../file-input";
 import { useImageCropper } from "..";
 
-type ActiveState = "landscape" | "potrait" | "icon";
+type ActiveState = "landscape" | "portrait" | "icon";
 
 const stateWiseAspectRatio = {
   landscape: 4 / 3,
-  potrait: 3 / 4,
+  portrait: 3 / 4,
   icon: 1 / 1,
 };
 
@@ -120,7 +120,7 @@ function CropperFormComponent({ onNewFileUpload }: Props) {
       } else {
         setAspectRatioWiseImages({
           landscape: croppedImage,
-          potrait: croppedImage,
+          portrait: croppedImage,
           icon: croppedImage,
         });
       }
@@ -217,7 +217,7 @@ function CropperFormComponent({ onNewFileUpload }: Props) {
                   </ToggleGroupItem>
                   <ToggleGroupItem
                     className="rounded-none border-x-0"
-                    value="potrait"
+                    value="portrait"
                   >
                     <FileImage />
                   </ToggleGroupItem>
@@ -297,7 +297,7 @@ function CropperFormComponent({ onNewFileUpload }: Props) {
           {/* Image Previews */}
           <div className="flex flex-row lg:flex-col gap-3 w-full lg:w-48">
             <div className="w-5/5">{getImagePreview("landscape")}</div>
-            <div className="w-4/5">{getImagePreview("potrait")}</div>
+            <div className="w-4/5">{getImagePreview("portrait")}</div>
             <div className="w-3/5">{getImagePreview("icon")}</div>
           </div>
         </div>
