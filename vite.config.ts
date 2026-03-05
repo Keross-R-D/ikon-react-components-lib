@@ -42,6 +42,8 @@ export default defineConfig({
     rollupOptions: {
       external: ["react", "react-dom"],
     },
+    cssCodeSplit: false,
+    emptyOutDir: true,
   },
   resolve: {
     alias: {
