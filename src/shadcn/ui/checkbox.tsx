@@ -1,8 +1,6 @@
-"use client"
-
 import * as React from "react"
 import { CheckIcon } from "lucide-react"
-import { Checkbox as CheckboxPrimitive } from "radix-ui"
+import * as CheckboxPrimitive from "@radix-ui/react-checkbox"
 
 import { cn } from "@/shadcn/lib/utils"
 
