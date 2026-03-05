@@ -116,46 +116,7 @@ function App() {
   return (
     <>
       <ProviderWrapper>
-        <EChart />
-        <FileUploader onFileSelect={(args) => console.log(args)} />
-        <Form {...form}>
-          <form className="space-y-4">
-            <FormInput
-              name="name"
-              formControl={form.control}
-              placeholder="Enter a workflow name"
-              label="Workflow Name"
-            />
-            <FormComboboxInput
-              formControl={form.control}
-              name="Test Dropdown"
-              items={[
-                { label: "Option 1", value: "Option 1" },
-                { label: "Option 2", value: "Option 2" },
-              ]}
-              placeholder="Select an option"
-            />
-            <FormDateInput name="startDate" formControl={form.control} />
-            <FormOtpInput name="otp" formControl={form.control} />
-            <FormPasswordInput name="password" formControl={form.control} />
-            <FormTextarea
-              name="textarea"
-              formControl={form.control}
-              placeholder="Enter description..."
-            />
-          </form>
-        </Form>
-        <GlowingEffect />
-        {/* <ImageCropper src={undefined} onCroppedImage={function (imageUrl: string): void {
-          throw new Error("Function not implemented.");
-        } } aspectRatio={0} rotationAngle={0} zoomLevel={0} moveDirection={{
-          x: 0,
-          y: 0
-        }} /> */}
-        {/* <LoadingSpinner /> */}
-          <AssistantComponent className="h-2/3" appId="9f3a7c2e-5b41-4d8a-9c6e-1a72f8e3b4c9" currentUserDetails={userData} baseUrl="http://localhost:3001"/>
-          {/* </div> */}
-        <UploadTab />
+       
       </ProviderWrapper>
     </>
 

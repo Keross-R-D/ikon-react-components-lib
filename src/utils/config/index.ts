@@ -8,7 +8,7 @@ interface ConfigProps {
   IKON_PLATFORM_UI_URL: string;
   IKON_PLATFORM_PROFILE_URL: string;
 }
-interface IkonConfigProps {
+export interface IkonConfigProps {
   IKON_BASE_API_URL: string;
   IKON_PLATFORM_UI_URL: string;
   LOGIN_PAGE_URL: string;
