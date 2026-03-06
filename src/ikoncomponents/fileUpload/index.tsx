@@ -1,36 +1,15 @@
-"use client";
 
 import React, { useState, type DragEvent } from "react";
 import { UploadCloud, FileUp } from "lucide-react";
+import { convertFileToObject, type FileObjType } from "./utils";
 
 export interface FileUploaderProps {
   label?: string;
   isDrag?: boolean; // enable or disable drag & drop
-  onFileSelect: (fileObj: FileObjType) => Promise<FileObjType> | void; // now returns object with base64
-}
-
-export interface FileObjType {
-  message: string;
-  fileName: string;
-  size: number;
-  type: string;
-  lastModified: number;
-  base64: string;
+  onFileSelect: (fileObj: FileObjType) => Promise<FileObjType> | Promise<void> | void; // now returns object with base64
 }
 // --- Helper: Convert File to Object with Base64 ---
-export const convertFileToObject = async (file: File) => {
-  const arrayBuffer = await file.arrayBuffer();
-  const base64 = btoa(String.fromCharCode(...new Uint8Array(arrayBuffer)));
-
-  return {
-    message: "File processed successfully",
-    fileName: file.name,
-    size: file.size,
-    type: file.type,
-    lastModified: file.lastModified,
-    base64: base64,
-  };
-};
+// Moved to utils.ts to comply with react-refresh/only-export-components rule
 
 export function FileUploader({
   label = "Upload File",
@@ -115,15 +94,4 @@ export function FileUploader({
   );
 }
 
-// --- Helper Function: Recreate Image from File Object ---
-export function getImageFromObject(obj: FileObjType) {
-  const byteCharacters = atob(obj.base64);
-  const byteNumbers = new Array(byteCharacters.length)
-    .fill(0)
-    .map((_, i) => byteCharacters.charCodeAt(i));
-  const byteArray = new Uint8Array(byteNumbers);
-
-  const blob = new Blob([byteArray], { type: obj.type });
-
-  return URL.createObjectURL(blob); // usable in <img src="..." />
-}
+export type { FileObjType };
