@@ -36,7 +36,7 @@ export default defineConfig({
     lib: {
       entry: path.resolve(__dirname, "src/index.ts"),
       name: "IkonComponentsReact",
-      fileName: (format) => `ikoncomponents-react-lib.${format}.js`,
+      fileName: (format) => `ikon-react-components-lib.${format}.js`,
       formats: ["es", "cjs"],
     },
     rollupOptions: {

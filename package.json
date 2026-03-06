@@ -1,10 +1,10 @@
 {
-  "name": "ikoncomponents-react-lib",
+  "name": "ikon-react-components-lib",
   "private": false,
   "version": "1.0.0",
   "type": "module",
-  "main": "./dist/ikoncomponents-react-lib.cjs.js",
-  "module": "./dist/ikoncomponents-react-lib.es.js",
+  "main": "./dist/ikon-react-components-lib.cjs.js",
+  "module": "./dist/ikon-react-components-lib.es.js",
   "types": "./dist/index.d.ts",
   "style": "dist/styles.css",
   "files": [
