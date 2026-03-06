@@ -6,7 +6,8 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
-
+tsconfig.tsbuildinfo
+ikoncomponents-react-lib-1.0.0.tgz
 node_modules
 dist
 dist-ssr

@@ -1,8 +1,6 @@
-"use client"
-
 import * as React from "react"
 import { type VariantProps } from "class-variance-authority"
-import { ToggleGroup as ToggleGroupPrimitive } from "radix-ui"
+import * as ToggleGroupPrimitive from "@radix-ui/react-toggle-group"
 
 import { cn } from "@/shadcn/lib/utils"
 import { toggleVariants } from "@/shadcn/ui/toggle"
