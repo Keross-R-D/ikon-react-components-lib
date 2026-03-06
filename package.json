@@ -1,7 +1,7 @@
 {
   "name": "ikon-react-components-lib",
   "private": false,
-  "version": "1.0.1",
+  "version": "1.0.2",
   "type": "module",
   "main": "./dist/ikon-react-components-lib.cjs.js",
   "module": "./dist/ikon-react-components-lib.es.js",
