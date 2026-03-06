@@ -5,7 +5,7 @@ A comprehensive React component library with UI components, form utilities, data
 ## Installation
 
 ```bash
-npm i ikoncomponents
+npm i ikon-react-components-lib
 ```
 
 ## Quick Start
@@ -25,8 +25,7 @@ Update your `global.css` or `index.css`:
 
 ```css
 @import "tailwindcss";
-@import "tw-animate-css";
-@import "ikoncomponents/dist/styles.css";
+@import "ikon-react-components-lib/dist/ikon-react-components-lib.css"
 ```
 
 ### 3. Configure the Library

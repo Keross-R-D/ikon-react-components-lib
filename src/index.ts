@@ -153,6 +153,7 @@ export { FormMultiComboboxInput } from "./ikoncomponents/form-fields/multi-combo
 export { FormOtpInput } from "./ikoncomponents/form-fields/otp-input";
 export { FormPhoneInput } from "./ikoncomponents/form-fields/phone-input";
 export { FormTextarea } from "./ikoncomponents/form-fields/textarea";
+export { FormPasswordInput } from "./ikoncomponents/form-fields/password-input";
 export type {
   FormFieldProps,
   FormInputProps,

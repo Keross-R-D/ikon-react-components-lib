@@ -1,7 +1,7 @@
 {
   "name": "ikon-react-components-lib",
   "private": false,
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
   "main": "./dist/ikon-react-components-lib.cjs.js",
   "module": "./dist/ikon-react-components-lib.es.js",
@@ -15,7 +15,8 @@
     "build": "tsc -b && vite build",
     "tailwind:build": "ts-node tailwind.config.ts",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "prepublishOnly": "npm run build"
   },
   "dependencies": {
     "@assistant-ui/react": "^0.12.12",
