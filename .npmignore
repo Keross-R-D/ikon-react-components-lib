@@ -1,0 +1,49 @@
+# Source files
+src/
+public/
+
+# Config files
+vite.config.ts
+tsconfig.app.json
+tsconfig.node.json
+eslint.config.js
+postcss.config.js
+components.json
+tailwind.config.ts
+
+# Development files
+*.tsbuildinfo
+
+# Tests
+**/__tests__
+**/*.spec.ts
+**/*.spec.tsx
+**/*.test.ts
+**/*.test.tsx
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Node modules
+node_modules/
+
+# Git
+.git/
+.gitignore
+
+# CI/CD
+.github/
+.gitlab-ci.yml
+
+# Build artifacts (keep only dist)
+.env
+.env.local

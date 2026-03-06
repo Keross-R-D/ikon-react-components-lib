@@ -51,7 +51,7 @@ import { DataTablePagination } from "./datatable-pagination";
 import { ActionMenu } from "../action-menu";
 import { cx } from "class-variance-authority";
 
-export const DataTable = (
+export const DataTable = forwardRef(
   <TData, TValue>(
     { columns, data, extraParams, onTableReady }: DataTableProps<TData, TValue>,
     ref: any
@@ -541,4 +541,4 @@ export const DataTable = (
       )
     );
   }
-);
+) as any;

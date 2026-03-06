@@ -5,7 +5,7 @@ A comprehensive React component library with UI components, form utilities, data
 ## Installation
 
 ```bash
-npm i ikoncomponents
+npm i ikon-react-components-lib
 ```
 
 ## Quick Start
@@ -25,8 +25,7 @@ Update your `global.css` or `index.css`:
 
 ```css
 @import "tailwindcss";
-@import "tw-animate-css";
-@import "ikoncomponents/dist/styles.css";
+@import "ikon-react-components-lib/dist/ikon-react-components-lib.css"
 ```
 
 ### 3. Configure the Library
@@ -37,7 +36,7 @@ In your **entry point** (typically `main.tsx` or `index.tsx`), configure the lib
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
-import { setIkonConfig } from "ikoncomponents";
+import { setIkonConfig } from "ikon-react-components-lib";
 import "./global.css";
 
 // Configure BEFORE rendering
@@ -67,7 +66,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
 In your root `App.tsx`, wrap your application with `<ProviderWrapper>`:
 
 ```tsx
-import { ProviderWrapper } from "ikoncomponents";
+import { ProviderWrapper } from "ikon-react-components-lib";
 
 function App() {
   return (
@@ -91,7 +90,7 @@ export default App;
 Use `RenderSidebarNav` and `RenderAppBreadcrumb` to build a full navigation layout:
 
 ```tsx
-import { RenderAppBreadcrumb, RenderSidebarNav } from "ikoncomponents";
+import { RenderAppBreadcrumb, RenderSidebarNav } from "ikon-react-components-lib";
 import { LayoutDashboard, Settings, Users, FileText } from "lucide-react";
 
 function App() {
@@ -161,8 +160,8 @@ interface NavItem {
 Use `useRefresh()` hook to refresh the API or trigger sidebar re-render:
 
 ```tsx
-import { useRefresh } from "ikoncomponents";
-import { TextButton } from "ikoncomponents";
+import { useRefresh } from "ikon-react-components-lib";
+import { TextButton } from "ikon-react-components-lib";
 
 function SettingsPage() {
   const { refresh } = useRefresh();
@@ -193,7 +192,7 @@ All standard ShadCN components are included. Full documentation: [https://ui.sha
 |---|---|---|---|
 | accordion | alert-dialog | alert | avatar |
 | badge | button | calendar | card |
-| checkbox | command | date-input | date-range-picker |
+| checkbox | command | date-range-picker |
 | dialog | dropdown-menu | hover-card | input |
 | label | navigation-menu | popover | progress |
 | radio-group | scroll-area | select | separator |
@@ -210,7 +209,7 @@ All standard ShadCN components are included. Full documentation: [https://ui.sha
 ### ActionMenu
 
 ```tsx
-import { ActionMenu } from "ikoncomponents";
+import { ActionMenu } from "ikon-react-components-lib";
 ```
 
 #### Props
@@ -245,15 +244,7 @@ import { ActionMenu } from "ikoncomponents";
 AI chat assistant powered by `@assistant-ui/react`.
 
 ```tsx
-import { AssistantComponent } from "ikoncomponents";
-```
-
-**Required dependencies:**
-
-```bash
-npm install @assistant-ui/react@^0.12.12
-npm install @assistant-ui/react-ai-sdk@^1.3.9
-npm install @assistant-ui/react-markdown@^0.12.5
+import { AssistantComponent } from "ikon-react-components-lib";
 ```
 
 #### Props
@@ -293,7 +284,7 @@ npm install @assistant-ui/react-markdown@^0.12.5
 ### BigCalendar
 
 ```tsx
-import { BigCalendar } from "ikoncomponents";
+import { BigCalendar } from "ikon-react-components-lib";
 ```
 
 #### Props
@@ -340,7 +331,7 @@ import {
   IconTextButtonWithTooltip,
   IconButton,
   IconButtonWithTooltip,
-} from "ikoncomponents";
+} from "ikon-react-components-lib";
 ```
 
 All button components share a common props interface extending `React.ButtonHTMLAttributes<HTMLButtonElement>`:
@@ -364,7 +355,7 @@ All button components share a common props interface extending `React.ButtonHTML
 ### ComboboxInput
 
 ```tsx
-import { ComboboxInput } from "ikoncomponents";
+import { ComboboxInput } from "ikon-react-components-lib";
 ```
 
 #### `ComboBoxInputProps`
@@ -391,7 +382,7 @@ import { ComboboxInput } from "ikoncomponents";
 ### MultiCombobox
 
 ```tsx
-import { MultiCombobox } from "ikoncomponents";
+import { MultiCombobox } from "ikon-react-components-lib";
 ```
 
 #### Props
@@ -409,7 +400,7 @@ import { MultiCombobox } from "ikoncomponents";
 ### CustomAlertDialog
 
 ```tsx
-import { CustomAlertDialog } from "ikoncomponents";
+import { CustomAlertDialog } from "ikon-react-components-lib";
 ```
 
 #### Props
@@ -433,7 +424,7 @@ import { CustomAlertDialog } from "ikoncomponents";
 A fully-featured data table with sorting, filtering, pagination, grouping, and column customization.
 
 ```tsx
-import { DataTable } from "ikoncomponents";
+import { DataTable } from "ikon-react-components-lib";
 import { ColumnDef } from "@tanstack/react-table";
 ```
 
@@ -441,8 +432,8 @@ import { ColumnDef } from "@tanstack/react-table";
 
 ```tsx
 import { useState } from "react";
-import { DataTable } from "ikoncomponents";
-import type { DTExtraParamsProps } from "ikoncomponents";
+import { DataTable } from "ikon-react-components-lib";
+import type { DTExtraParamsProps } from "ikon-react-components-lib";
 import { ColumnDef } from "@tanstack/react-table";
 
 interface User {
@@ -580,7 +571,7 @@ Extends TanStack Table's `ColumnDef<TData, TValue>`.
 ### EChart
 
 ```tsx
-import { EChart } from "ikoncomponents";
+import { EChart } from "ikon-react-components-lib";
 ```
 
 Uses `forwardRef` — you can access `ref` methods.
@@ -616,7 +607,7 @@ Uses `forwardRef` — you can access `ref` methods.
 ### FileUploader
 
 ```tsx
-import { FileUploader, getImageFromObject } from "ikoncomponents";
+import { FileUploader, getImageFromObject } from "ikon-react-components-lib";
 ```
 
 #### `FileUploaderProps`
@@ -664,7 +655,7 @@ const handleFileUpload = async (fileObj: FileObjType) => {
 ### GlowingEffect
 
 ```tsx
-import { GlowingEffect } from "ikoncomponents";
+import { GlowingEffect } from "ikon-react-components-lib";
 ```
 
 #### Props
@@ -687,7 +678,7 @@ import { GlowingEffect } from "ikoncomponents";
 ### Icon
 
 ```tsx
-import { Icon } from "ikoncomponents";
+import { Icon } from "ikon-react-components-lib";
 ```
 
 Dynamically renders any [Lucide icon](https://lucide.dev/icons) by name.
@@ -707,7 +698,7 @@ Dynamically renders any [Lucide icon](https://lucide.dev/icons) by name.
 ### LoadingSpinner
 
 ```tsx
-import { LoadingSpinner } from "ikoncomponents";
+import { LoadingSpinner } from "ikon-react-components-lib";
 ```
 
 #### Props
@@ -724,7 +715,7 @@ import { LoadingSpinner } from "ikoncomponents";
 ### NoDataComponent
 
 ```tsx
-import { NoDataComponent } from "ikoncomponents";
+import { NoDataComponent } from "ikon-react-components-lib";
 ```
 
 #### Props
@@ -738,7 +729,7 @@ import { NoDataComponent } from "ikoncomponents";
 ### PageWrapper
 
 ```tsx
-import { PageWrapper } from "ikoncomponents";
+import { PageWrapper } from "ikon-react-components-lib";
 ```
 
 #### Props
@@ -755,7 +746,7 @@ import { PageWrapper } from "ikoncomponents";
 ### PasswordStrengthMeter
 
 ```tsx
-import { PasswordStrengthMeter } from "ikoncomponents";
+import { PasswordStrengthMeter } from "ikon-react-components-lib";
 ```
 
 #### Props
@@ -771,7 +762,7 @@ Displays a color-coded progress bar: Very weak → Weak → Fair → Good → St
 ### SimpleWidget
 
 ```tsx
-import { SimpleWidget } from "ikoncomponents";
+import { SimpleWidget } from "ikon-react-components-lib";
 ```
 
 #### Props
@@ -793,7 +784,7 @@ import { SimpleWidget } from "ikoncomponents";
 ### Tabs (CustomTabs)
 
 ```tsx
-import { CustomTabs } from "ikoncomponents";
+import { CustomTabs } from "ikon-react-components-lib";
 ```
 
 #### Props
@@ -826,7 +817,7 @@ import { CustomTabs } from "ikoncomponents";
 ### TitleProgress
 
 ```tsx
-import { TitleProgress } from "ikoncomponents";
+import { TitleProgress } from "ikon-react-components-lib";
 ```
 
 #### Props
@@ -847,7 +838,7 @@ import { TitleProgress } from "ikoncomponents";
 ### TooltipComponent
 
 ```tsx
-import { TooltipComponent } from "ikoncomponents";
+import { TooltipComponent } from "ikon-react-components-lib";
 ```
 
 #### Props
@@ -862,7 +853,7 @@ import { TooltipComponent } from "ikoncomponents";
 ### Widgets
 
 ```tsx
-import { Widgets } from "ikoncomponents";
+import { Widgets } from "ikon-react-components-lib";
 ```
 
 #### Props
@@ -888,7 +879,7 @@ import { Widgets } from "ikoncomponents";
 #### GradeTableLoader
 
 ```tsx
-import { GradeTableLoader } from "ikoncomponents";
+import { GradeTableLoader } from "ikon-react-components-lib";
 ```
 
 | Property      | Type      | Optional | Default | Description                 |
@@ -899,7 +890,7 @@ import { GradeTableLoader } from "ikoncomponents";
 #### SkeletonWidget
 
 ```tsx
-import { SkeletonWidget } from "ikoncomponents";
+import { SkeletonWidget } from "ikon-react-components-lib";
 ```
 
 | Property | Type     | Optional | Description                       |
@@ -911,7 +902,7 @@ import { SkeletonWidget } from "ikoncomponents";
 ### SheetComponent
 
 ```tsx
-import { SheetComponent } from "ikoncomponents";
+import { SheetComponent } from "ikon-react-components-lib";
 ```
 
 #### Props
@@ -948,7 +939,7 @@ import {
   FormComboboxInput,
   FormTextarea,
   TextButton,
-} from "ikoncomponents";
+} from "ikon-react-components-lib";
 
 const registrationSchema = z.object({
   username: z.string().min(3, "Username must be 3+ chars"),
@@ -1037,7 +1028,7 @@ export default RegisterForm;
 Standard text input field with validation.
 
 ```tsx
-import { FormInput } from "ikoncomponents";
+import { FormInput } from "ikon-react-components-lib";
 ```
 
 #### Props
@@ -1056,7 +1047,7 @@ import { FormInput } from "ikoncomponents";
 ### FormPasswordInput
 
 ```tsx
-import { FormPasswordInput } from "ikoncomponents";
+import { FormPasswordInput } from "ikon-react-components-lib";
 ```
 
 Same props as `FormInput`. Renders a password field with a show/hide toggle button.
@@ -1064,7 +1055,7 @@ Same props as `FormInput`. Renders a password field with a show/hide toggle butt
 ### FormTextarea
 
 ```tsx
-import { FormTextarea } from "ikoncomponents";
+import { FormTextarea } from "ikon-react-components-lib";
 ```
 
 #### Props
@@ -1084,7 +1075,7 @@ Extends `FormFieldProps` + `TextareaHTMLAttributes<HTMLTextAreaElement>`.
 ### FormDateInput
 
 ```tsx
-import { FormDateInput } from "ikoncomponents";
+import { FormDateInput } from "ikon-react-components-lib";
 ```
 
 #### Props
@@ -1103,7 +1094,7 @@ import { FormDateInput } from "ikoncomponents";
 ### FormComboboxInput
 
 ```tsx
-import { FormComboboxInput } from "ikoncomponents";
+import { FormComboboxInput } from "ikon-react-components-lib";
 ```
 
 #### Props
@@ -1123,7 +1114,7 @@ import { FormComboboxInput } from "ikoncomponents";
 ### FormComboboxInputWithValue
 
 ```tsx
-import { FormComboboxInputWithValue } from "ikoncomponents";
+import { FormComboboxInputWithValue } from "ikon-react-components-lib";
 ```
 
 A controlled variant of `FormComboboxInput` that accepts external `value` and `onChange`.
@@ -1146,7 +1137,7 @@ A controlled variant of `FormComboboxInput` that accepts external `value` and `o
 ### FormMultiComboboxInput
 
 ```tsx
-import { FormMultiComboboxInput } from "ikoncomponents";
+import { FormMultiComboboxInput } from "ikon-react-components-lib";
 ```
 
 #### Props
@@ -1167,7 +1158,7 @@ import { FormMultiComboboxInput } from "ikoncomponents";
 ### FormOtpInput
 
 ```tsx
-import { FormOtpInput } from "ikoncomponents";
+import { FormOtpInput } from "ikon-react-components-lib";
 ```
 
 Same props as `FormInput`. Renders a 4-digit OTP input.
@@ -1177,7 +1168,7 @@ Same props as `FormInput`. Renders a 4-digit OTP input.
 ## ImageCropperProvider
 
 ```tsx
-import { ImageCropperProvider, useImageCropper } from "ikoncomponents";
+import { ImageCropperProvider, useImageCropper } from "ikon-react-components-lib";
 ```
 
 Provides an image cropper context and modal for cropping images into landscape, portrait, and icon aspect ratios.
@@ -1208,7 +1199,7 @@ Returns:
 ## ThemeToggleBtn
 
 ```tsx
-import { ThemeToggleBtn } from "ikoncomponents";
+import { ThemeToggleBtn } from "ikon-react-components-lib";
 ```
 
 Renders a theme toggle button (light/dark/system). No props required.
@@ -1218,7 +1209,7 @@ Renders a theme toggle button (light/dark/system). No props required.
 ## WorkInProgress
 
 ```tsx
-import { WorkInProgress } from "ikoncomponents";
+import { WorkInProgress } from "ikon-react-components-lib";
 ```
 
 Renders a "Work In Progress" placeholder. No props required.

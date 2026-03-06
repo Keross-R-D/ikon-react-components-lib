@@ -20,6 +20,6 @@
       "@/*": ["./src/*"]
     },
   },
-  "include": ["src"],
-  "exclude": ["node_modules","src/main.tsx", "src/App.tsx"]
+  "include": ["src","src/styles.css",],
+  "exclude": ["node_modules","src/main.tsx", "src/App.tsx", "public"]
 }
