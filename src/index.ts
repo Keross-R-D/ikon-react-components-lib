@@ -72,10 +72,12 @@ export { DataTableColumnFilter } from "./ikoncomponents/data-table/datatable-col
 export { DataTableFacetedFilter } from "./ikoncomponents/data-table/datatable-faceted-filter";
 export { DataTableFilterMenu } from "./ikoncomponents/data-table/datatable-filter-menu";
 export {
-  convertFileToObject,
   FileUploader,
-  getImageFromObject,
 } from "./ikoncomponents/fileUpload";
+export {
+  convertFileToObject,
+  getImageFromObject
+} from "./ikoncomponents/fileUpload/utils";
 export type { FileUploaderProps } from "./ikoncomponents/fileUpload";
 export { DataTablePagination } from "./ikoncomponents/data-table/datatable-pagination";
 export { DataTableToolbar } from "./ikoncomponents/data-table/datatable-toolbar";
