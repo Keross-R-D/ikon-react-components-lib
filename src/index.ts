@@ -71,12 +71,10 @@ export type {
 export { DataTableColumnFilter } from "./ikoncomponents/data-table/datatable-column-filter";
 export { DataTableFacetedFilter } from "./ikoncomponents/data-table/datatable-faceted-filter";
 export { DataTableFilterMenu } from "./ikoncomponents/data-table/datatable-filter-menu";
-export {
-  FileUploader,
-} from "./ikoncomponents/fileUpload";
+export { FileUploader } from "./ikoncomponents/fileUpload";
 export {
   convertFileToObject,
-  getImageFromObject
+  getImageFromObject,
 } from "./ikoncomponents/fileUpload/utils";
 export type { FileUploaderProps } from "./ikoncomponents/fileUpload";
 export { DataTablePagination } from "./ikoncomponents/data-table/datatable-pagination";
@@ -146,6 +144,7 @@ export {
   AppBreadcrumb,
   RenderAppBreadcrumb,
 } from "./ikoncomponents/app-breadcrumb";
+export { RenderSidebarNav } from "./ikoncomponents/main-layout/nav-main";
 export { FormComboboxInput } from "./ikoncomponents/form-fields/combobox-input";
 export { FormComboboxInputWithValue } from "./ikoncomponents/form-fields/combobox-input-value";
 export { FormDateInput } from "./ikoncomponents/form-fields/date-input";
@@ -209,7 +208,7 @@ export type { CropperImgProps as NewCropperImgProps } from "./ikoncomponents/ima
 export { NewImageForm } from "./ikoncomponents/image-cropper-upload/components/newImageUploadForm";
 export type { ImageFormProps } from "./ikoncomponents/image-cropper-upload/components/newImageUploadForm";
 export { WorkInProgress } from "./ikoncomponents/work-in-progress";
-export { CustomComboboxInput } from "./ikoncomponents/custom-combo-dropdown"
+export { CustomComboboxInput } from "./ikoncomponents/custom-combo-dropdown";
 export { AssistantComponent } from "./ikoncomponents/assistant-ui/Assistant";
 
 export { ThemeProvider } from "./utils/theme-provider";
@@ -228,10 +227,12 @@ export {
 export {
   getValidAccessToken,
   refreshAccessToken,
-//   decodeAccessToken,
-//   logOut
+  //   decodeAccessToken,
+  //   logOut
 } from "./utils/token-management";
 export type { TokenResponse } from "./utils/token-management/types";
 
 export { useIsMobile } from "./shadcn/hooks/use-mobile";
-export {useRefresh} from "./ikoncomponents/main-layout/RefreshContext";
+export { useRefresh } from "./ikoncomponents/main-layout/RefreshContext";
+
+export { axiosInstance } from "./utils/api/axiosAuth"

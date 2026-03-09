@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import axiosInstance from "../../axiosAuth";
+import {axiosInstance} from "../../axiosAuth";
 import { getConfig } from "@/utils/config";
 import type { FileinfoProps } from "../type";
 

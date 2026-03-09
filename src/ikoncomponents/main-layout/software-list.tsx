@@ -1,7 +1,7 @@
 import { Button } from "@/shadcn/ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/shadcn/ui/tooltip";
 import { FolderCode, Home } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { Icon } from "../icon";
 import { getConfig } from "@/utils/config";
 import { useAllSoftwaresQuery } from "@/utils/api/platformServiceQuery";

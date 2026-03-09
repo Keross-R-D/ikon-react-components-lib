@@ -1,7 +1,7 @@
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 
 import { Fragment, useEffect, useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { useBreadcrumb, type BreadcrumbItemProps } from "./BreadcrumbProvider";
 import {
   Breadcrumb,

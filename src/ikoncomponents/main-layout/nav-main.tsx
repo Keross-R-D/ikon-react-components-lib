@@ -15,7 +15,7 @@ import {
   CollapsibleTrigger,
 } from "../../shadcn/ui/collapsible";
 // import Link from "next/link";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { type SidebarNavItem, useSidebarNav } from "./SidebarNavContext";
 
 export function NavMain() {

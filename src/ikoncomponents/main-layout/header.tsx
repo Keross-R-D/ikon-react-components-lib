@@ -6,7 +6,7 @@ import { SidebarTrigger } from "../../shadcn/ui/sidebar";
 import { Bell, Play } from "lucide-react";
 import { IconButtonWithTooltip, IconTextButton } from "../buttons";
 import { useSidebarNav } from "./SidebarNavContext";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { getConfig } from "../../utils/config";
 
 export function Header() {

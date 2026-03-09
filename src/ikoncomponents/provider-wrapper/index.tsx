@@ -5,7 +5,7 @@ import { RadiusProvider } from "../../utils/border-radius-provider";
 import { BreadcrumbProvider } from "../app-breadcrumb/BreadcrumbProvider";
 import { MainLayout } from "../main-layout";
 import { RefreshProvider } from "../main-layout/RefreshContext";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router";
 import { TanstackProvider } from "./TanstackProvider";
 import { UserProvider } from "../../utils/userContext";
 import { getConfig } from "../../utils/config";

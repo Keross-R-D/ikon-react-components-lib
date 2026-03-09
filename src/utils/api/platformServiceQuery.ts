@@ -1,5 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import axiosInstance from "./axiosAuth";
+import {axiosInstance} from "./axiosAuth";
 import type { User } from "@/types/user";
 import type { Account } from "@/types/account";
 import { getConfig } from "@/utils/config";

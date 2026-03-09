@@ -8,7 +8,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "../../shadcn/ui/tooltip";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { getConfig } from "../../utils/config";
 import UserAvatar from "./userAvatar";
 import Accounts from "./accounts";
