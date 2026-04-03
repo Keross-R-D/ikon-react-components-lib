@@ -93,6 +93,9 @@ export type {
   DataTablePaginationProps,
   DragDropHeaderProp,
 } from "./ikoncomponents/data-table/type";
+
+export { DataTableLayout } from "./ikoncomponents/table";
+export type { DataTableLayoutProps, ColumnsProps } from "./ikoncomponents/table/type";
 export { EChart } from "./ikoncomponents/e-chart";
 export { FileInput } from "./ikoncomponents/file-input";
 export { GlowingEffect } from "./ikoncomponents/glowing-effect";
