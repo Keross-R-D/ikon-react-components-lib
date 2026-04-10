@@ -1,5 +1,11 @@
 import React, { useState, useRef, useEffect, useMemo } from "react";
 import { Filter, X, ChevronDown, Check, RotateCcw, Search, ListFilter } from "lucide-react";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/shadcn/ui/dropdown-menu";
+import { Input } from "@base-ui/react";
+import { Button } from "@/shadcn/ui/button";
+import { Checkbox } from "@/shadcn/ui/checkbox";
+import { SearchInput } from "@/index";
+import { Popover, PopoverContent, PopoverTrigger } from "@radix-ui/react-popover";
 
 export function DataTableFilter({ table }: { table: any }) {
   const [showMainBtn, setShowMainBtn] = useState(false);
@@ -24,81 +30,54 @@ export function DataTableFilter({ table }: { table: any }) {
   }, []);
 
   return (
-    <div className="flex flex-wrap items-center gap-3">
-      {/* --- MAIN COLUMN SELECTOR DROPDOWN --- */}
-      <div className="relative" ref={mainRef}>
-        <button
-          onClick={() => setShowMainBtn(!showMainBtn)}
-          className={`flex items-center gap-2 px-3 h-9 border rounded-md bg-background text-sm font-medium transition-all ${
-            showMainBtn ? "border-primary ring-1 ring-primary" : "border-border hover:bg-muted"
-          }`}
-        >
-          <ListFilter className="w-4 h-4" />
-          Filter
-        </button>
-
-        {showMainBtn && (
-          <div className="absolute  mt-2 w-64 bg-white border border-gray-200 rounded-md shadow-xl ">
-            <div className="p-3 border-b text-center font-bold text-gray-800 text-sm">
-              Columns For Filtering
+    <div className="flex items-center gap-3 ">
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="outline" size="sm" className=" gap-2">
+            <ListFilter className="w-4 h-4" />
+            Filter
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end" className="w-64 p-2">
+          <DropdownMenuLabel className="text-center">Filter</DropdownMenuLabel>
+          <div className="p-2">
+            <div className="relative mb-2">
+              <Search className="absolute left-2 top-2.5 h-3.5 w-3.5 text-muted-foreground" />
+              <SearchInput
+                placeholder="Search columns..."
+                // className="pl-8 h-8"
+                value={searchQuery}
+                onChange={(e : any) => setSearchQuery(e.target.value)}
+              />
             </div>
-            
-            <div className="p-3 space-y-3">
-              <div className="relative">
-                <Search className="absolute left-2 top-2.5 h-3.5 w-3.5 text-gray-400" />
-                <input
-                  placeholder="Search columns..."
-                  className="w-full pl-8 pr-2 py-1.5 border rounded text-sm outline-none focus:ring-1 focus:ring-blue-500"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                />
-              </div>
-
-              <div className="max-h-48 overflow-y-auto space-y-1 pr-1">
-                {filteredColumns.map((col: any) => {
-                  const isActive = activeFilters.some((f: any) => f.id === col.id);
-                  return (
-                    <label key={col.id} className="flex items-center gap-2 p-2 hover:bg-gray-50 rounded cursor-pointer text-sm group">
-                      <input
-                        type="checkbox"
-                        className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                        checked={isActive}
-                        onChange={() => {
-                          if (isActive) col.setFilterValue(undefined);
-                          else col.setFilterValue([]); // Init as empty array for multi-select
-                        }}
-                      />
-                      <span className="text-gray-700 group-hover:text-black">
-                         {typeof col.columnDef.header === 'string' ? col.columnDef.header : col.id}
-                      </span>
+            <div className="max-h-50 overflow-auto  space-y-1 scroll-m-1">
+              {filteredColumns.map((col: any) => {
+                const isActive = activeFilters.some((f: any) => f.id === col.id);
+                return (
+                  <div key={col.id} className="flex items-center space-x-2 p-2 hover:bg-muted rounded-sm transition-colors cursor-pointer">
+                    <Checkbox 
+                      id={col.id}
+                      checked={isActive}
+                      onCheckedChange={(checked) => {
+                        checked ? col.setFilterValue([]) : col.setFilterValue(undefined);
+                      }}
+                    />
+                    <label htmlFor={col.id} className="text-sm font-medium leading-none cursor-pointer flex-1">
+                      {typeof col.columnDef.header === 'string' ? col.columnDef.header : col.id}
                     </label>
-                  );
-                })}
-              </div>
-            </div>
-
-            <div className="p-3 border-t bg-gray-50 flex gap-2 rounded-b-md">
-              <button 
-                onClick={() => setShowMainBtn(false)}
-                className="flex-1 flex items-center justify-center gap-1 py-1.5 bg-blue-600 text-white rounded text-xs font-semibold hover:bg-blue-700"
-              >
-                <Check size={14} /> Apply
-              </button>
-              <button 
-                onClick={() => {
-                  table.resetColumnFilters();
-                  setShowMainBtn(false);
-                }}
-                className="flex-1 flex items-center justify-center gap-1 py-1.5 border border-gray-300 bg-white text-gray-600 rounded text-xs font-semibold hover:bg-gray-50"
-              >
-                <RotateCcw size={14} /> Reset
-              </button>
+                  </div>
+                );
+              })}
             </div>
           </div>
-        )}
-      </div>
-
-      
+          <DropdownMenuSeparator />
+          <div className="flex gap-2 p-1">
+            <Button size="sm" className="flex-1 h-8" onClick={() => table.resetColumnFilters()}>
+              <RotateCcw className="mr-2 h-3 w-3" /> Reset
+            </Button>
+          </div>
+        </DropdownMenuContent>
+      </DropdownMenu>
     </div>
   );
 }
@@ -106,7 +85,7 @@ export function DataTableFilter({ table }: { table: any }) {
 export function FilterTagSpacer({ activeFilters, table }: { activeFilters: any; table: any }) {
   return (
     // {/* --- ACTIVE FILTER TAGS --- */}
-      <div className="flex flex-wrap gap-2">
+      <div className="flex flex-wrap gap-2 min-w-max max-w-[70%] overflow-y-auto">
         {activeFilters.map((filter: any) => (
           <FilterTag key={filter.id} filter={filter} table={table} />
         ))}
@@ -157,56 +136,69 @@ function FilterTag({ filter, table }: { filter: any, table: any }) {
   };
 
   return (
-    <div className="relative" ref={tagRef}>
-      <div className="flex items-center border border-gray-300 rounded-full bg-white px-3 py-1 text-xs shadow-sm">
-        <span className="font-bold text-gray-500 uppercase mr-1 tracking-tight">
-            {typeof column.columnDef.header === 'string' ? column.columnDef.header : filter.id}:
-        </span>
-        <button onClick={() => setIsOpen(!isOpen)} className="flex items-center gap-1 font-semibold text-blue-600 hover:text-blue-800">
-          {filter.value?.length ? `${filter.value.length} Selected` : "All"}
-          <ChevronDown size={12} />
-        </button>
-        <button onClick={() => column.setFilterValue(undefined)} className="ml-2 text-gray-400 hover:text-red-500 transition-colors">
-          <X size={14} />
-        </button>
-      </div>
-
-      {isOpen && (
-        <div className="absolute top-full left-0 mt-1 w-56 bg-white border border-gray-200 rounded-md shadow-lg z-[110]">
-          <div className="p-2 max-h-48 overflow-y-auto space-y-1">
+    <div className="flex items-center gap-1  " ref={tagRef}>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="outline" size="sm" className="h-7 rounded-full px-3 text-xs border border-dashed">
+            <span className="font-bold uppercase text-muted-foreground mr-1">
+               {typeof column.columnDef.header === 'string' ? column.columnDef.header : filter.id}:
+            </span>
+            <span className="text-primary font-semibold">
+              {filter.value?.length ? `${filter.value.length} Selected` : "All"}
+            </span>
+            <ChevronDown className="ml-1 h-3 w-3 opacity-50" />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent className="w-56 p-0" align="start">
+          <div className="p-2 max-h-48 overflow-y-auto">
             {uniqueValues.map((val: any) => (
-              <label key={val} className="flex items-center gap-2 p-2 hover:bg-gray-50 rounded cursor-pointer text-xs">
-                <input
-                  type="checkbox"
-                  className="rounded text-blue-600 border-gray-300"
+              <div key={val} className="flex items-center space-x-2 p-2 hover:bg-muted rounded-sm transition-colors cursor-pointer">
+                <Checkbox 
+                  id={`${filter.id}-${val}`}
                   checked={tempValues.includes(val)}
-                  onChange={() => {
+                  onCheckedChange={(checked) => {
                     setTempValues(prev => 
-                      prev.includes(val) ? prev.filter(v => v !== val) : [...prev, val]
+                      checked ? [...prev, val] : prev.filter(v => v !== val)
                     );
                   }}
                 />
-                <span className="truncate">{String(val)}</span>
-              </label>
+                <label htmlFor={`${filter.id}-${val}`} className="text-xs flex-1 truncate cursor-pointer">
+                  {String(val).trim() === ""?  "N/A" : String(val)}
+                </label>
+              </div>
             ))}
           </div>
-          
-          <div className="p-2 border-t bg-gray-50 flex gap-2 rounded-b-md">
-            <button 
-              onClick={handleApplyValues}
-              className="flex-1 py-1 px-2 bg-blue-600 text-white rounded text-[10px] font-bold hover:bg-blue-700"
+          <div className="p-2 border-t bg-muted/50 flex gap-2">
+            <Button 
+              size="sm" 
+              className="flex-1 h-7 text-[10px]" 
+              onClick={() => handleApplyValues()}
             >
               Apply
-            </button>
-            <button 
-              onClick={handleResetValues}
-              className="flex-1 py-1 px-2 border border-gray-300 bg-white text-gray-600 rounded text-[10px] font-bold hover:bg-gray-50"
+            </Button>
+            <Button 
+              size="sm" 
+              variant="outline" 
+              className="flex-1 h-7 text-[10px]" 
+              onClick={() => {
+                handleResetValues();
+              }}
             >
-              Reset
-            </button>
+              Clear
+            </Button>
           </div>
-        </div>
-      )}
+        </DropdownMenuContent>
+      </DropdownMenu>
+      
+      {/* Quick Remove Button */}
+      <Button 
+        variant="ghost" 
+        size="icon" 
+        className="h-6 w-6 rounded-full hover:text-destructive"
+        onClick={() => column.setFilterValue(undefined)}
+      >
+        <X className="h-3 w-3" />
+      </Button>
     </div>
   );
 }

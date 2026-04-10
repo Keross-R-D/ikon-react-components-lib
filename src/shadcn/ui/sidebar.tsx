@@ -595,7 +595,7 @@ function SidebarMenuBadge({
       {...props}
     />
   )
-}
+} 
 
 function SidebarMenuSkeleton({
   className,

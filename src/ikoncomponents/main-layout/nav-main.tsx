@@ -15,11 +15,12 @@ import {
   CollapsibleTrigger,
 } from "../../shadcn/ui/collapsible";
 // import Link from "next/link";
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
 import { type SidebarNavItem, useSidebarNav } from "./SidebarNavContext";
 
 export function NavMain() {
   const { navItems } = useSidebarNav();
+  const { pathname } = useLocation();
 
   // if (!navItems || navItems.length === 0) {
   //   return null;
@@ -38,7 +39,7 @@ export function NavMain() {
             >
               <SidebarMenuItem>
                 <CollapsibleTrigger asChild>
-                  <SidebarMenuButton tooltip={item.title}>
+                  <SidebarMenuButton asChild tooltip={item.title} isActive={pathname === item.url || pathname.startsWith(`${item.url}/`)}>
                     {item.icon && <item.icon />}
                     <span>{item.title}</span>
                     <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
@@ -48,7 +49,7 @@ export function NavMain() {
                   <SidebarMenuSub>
                     {item.items.map((subItem) => (
                       <SidebarMenuSubItem key={subItem.title}>
-                        <SidebarMenuSubButton asChild>
+                        <SidebarMenuSubButton asChild isActive={pathname === subItem.url || pathname.startsWith(`${subItem.url}/`)}>
                           <Link to={subItem.url}>
                             <span>{subItem.title}</span>
                           </Link>
@@ -61,7 +62,7 @@ export function NavMain() {
             </Collapsible>
           ) : (
             <SidebarMenuItem key={item.title}>
-              <SidebarMenuButton asChild tooltip={item.title}>
+              <SidebarMenuButton asChild tooltip={item.title} isActive={pathname === item.url || pathname.startsWith(`${item.url}/`)}>
                 <Link
                   to={item.url}
                   className="flex items-center gap-2 w-full"

@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useEffect, use } from "react";
+import React, {  useState, useEffect } from "react";
 import {
   useReactTable,
   getCoreRowModel,
@@ -8,34 +8,27 @@ import {
   getGroupedRowModel,
   getExpandedRowModel,
   flexRender,
-  ColumnDef,
   SortingState,
   PaginationState,
   ColumnFiltersState,
 } from "@tanstack/react-table";
+import * as XLSX from "xlsx";
 import { useSearchParams, useNavigate, useLocation } from "react-router-dom";
-import { ChevronDown, ChevronRight, ChevronUp, LayoutGrid, List, Settings2, X } from "lucide-react";
+import { ChevronDown, ChevronRight, ChevronUp, Download, LayoutGrid, List, Settings2, X } from "lucide-react";
 import { DataTableSearch } from "../DataTableSearch";
-import { se } from "date-fns/locale";
 import { DataTablePageSize } from "../DataTablePageSize";
 import { DataTablePagination } from "../DataTablePagination";
 import { DataTableFilter, FilterTagSpacer } from "../DataTableFilter";
 import { DataTableColumns } from "../DataTableColumn";
 import { DataTableLayoutProps } from "../type";
+import { Button } from "@/shadcn/ui/button";
 
 // Assuming your converted components are in the same dire
 
 export function DataTable<T>({ 
   data, 
   columns, 
-  totalPages ,
-  toggleViewMode,
-  gridComponent,
-  actionNode,
-  filterComponent,
-  showFooter, // New prop
-  footerLabel,
-  hiddenColumns,
+  extraTools
 }: DataTableLayoutProps<T>) {
     const [viewMode, setViewMode] = useState<"list" | "grid">("list");
   
@@ -58,14 +51,25 @@ export function DataTable<T>({
   const [rowSelection, setRowSelection] = useState({});
   const [columnVisibility, setColumnVisibility] = useState({});
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+  const hiddenColumns = extraTools?.hiddenColumns || [];
+
+  for (const col of columns) {
+    if (col.filterFn === undefined) {
+      col["filterFns"] = "multiSelect"; // Set default filter function to "multiSelect" if not provided
+       // Make columns draggable by default
+    } 
+    if (col.draggable === undefined) {
+      col["draggable"] = true;
+    }
+  }
 
   // 3. Configure Table
   const table = useReactTable({
     data,
     columns,
-    pageCount: totalPages,
+    pageCount: extraTools?.totalPages,
     meta : {
-      footerLabel: footerLabel,
+      footerLabel: extraTools?.footerLabel,
     },
     state: {
       pagination: pagination,
@@ -97,16 +101,18 @@ export function DataTable<T>({
     getGroupedRowModel: getGroupedRowModel(),
     getExpandedRowModel: getExpandedRowModel(),
     filterFns: {
-    // Custom filter to check if row value exists in selected array
-    multiSelect: (row, columnId, filterValue) => {
-    debugger
+      // Custom filter to check if row value exists in selected array
+      multiSelect: (row, columnId, filterValue) => {
+      debugger
 
-      if (!filterValue.length) return true;
-      return filterValue.includes(String(row.getValue(columnId)));
+        if (!filterValue.length) return true;
+        return filterValue.includes(String(row.getValue(columnId)));
+      },
     },
-  },
   });
   useEffect(() => {
+    debugger
+    
   table.getAllLeafColumns().map((column) => {
       if (hiddenColumns?.includes(column.id)) {
         column.toggleVisibility(false);
@@ -123,7 +129,7 @@ export function DataTable<T>({
     debugger
     e.preventDefault();
     const headerId = e.dataTransfer.getData("headerId");
-    if (headerId && !grouping.includes(headerId)) {
+    if (headerId && !grouping.includes(headerId) && table.getColumn(headerId)?.getCanGroup()) {
       table.getColumn(headerId)?.toggleGrouping();
     }
   };
@@ -140,6 +146,73 @@ export function DataTable<T>({
     table.setPageIndex(Number(searchParams.get("page") || "1") -1);
   }, [searchParams,navigate, pathname]);
   
+  const handleExport = () => {
+    // 1. Get only the columns that are currently visible in the UI
+  const visibleColumns = table.getVisibleLeafColumns()
+    .filter(col => col.id !== "select" && col.id !== "actions");
+
+    // --- RECURSIVE FUNCTION ---
+  const processRows = (rows: any, level = 0) => {
+    return rows.flatMap((row : any) => {
+      if (row.getIsGrouped()) {
+        // 1. This is a Group Header Row
+        const groupValue = String(row.id.replaceAll(`${visibleColumns[0].id}:`, "")).trim() === "" || row.id.replaceAll(`${row.parentId ? `${row.parentId}>` : ``}`, "").replaceAll(`${row.groupingColumnId}>`,"").replaceAll(`${visibleColumns[0].id}:`, "").trim() === undefined ? "N/A" : row.id.replaceAll(`${row.parentId ? `${row.parentId}>` : ``}`, "").replaceAll(`${visibleColumns[0].id}:`, "").trim();
+        
+        // Create the header row. We indent the text based on level for visual clarity in Excel.
+        const headerRow = {
+          [visibleColumns[0].id]: `${"  ".repeat(level)} ${groupValue} (${row.subRows.length})`
+        };
+
+        // 2. Recursively process the subRows (could be more groups or final data)
+        return [headerRow, ...processRows(row.subRows, level + 1)];
+      } else {
+        // 3. This is an actual Data Row (Leaf)
+        let rowData: Record<string, any> = {};
+        visibleColumns.forEach((col) => {
+          // Add indentation to the first column to show it belongs to the group above
+          const value = row.getValue(col.id); 
+            rowData[col.id] = (col.id === visibleColumns[0].id) || (value === "Actions" || value === "actions") 
+              ? "    "// + (value ?? "") 
+              : value === undefined ? "N/A" : value; // Handle empty/undefined values
+        });
+        return [rowData];
+      }
+    });
+  };
+
+  // Decide which model to use based on your checkGrouping state
+  const finalData = table.getState().grouping.length > 0
+    ? processRows(table.getGroupedRowModel().rows)
+    : table.getFilteredRowModel().rows.map(row => {
+        let rowData: Record<string, any> = {};
+        visibleColumns.forEach(col => rowData[col.id] = row.getValue(col.id));
+        return rowData;
+      });
+
+  // 3. Create and download
+  const worksheet = XLSX.utils.json_to_sheet(finalData);
+
+  // 4. --- AUTO-SIZE COLUMN WIDTH LOGIC ---
+  const colWidths = visibleColumns.map((col) => {
+    const header = typeof col.columnDef.header === "string" ? col.columnDef.header : col.id;
+    
+    // Find the longest string in this column (header vs all row values)
+    const maxCharLength = Math.max(
+      header.length,
+      ...finalData.map((row: any) => String(row[header]).length)
+    );
+
+    // Set width (adding 2 or 3 for extra padding/breathing room)
+    return { wch: maxCharLength + 3 };
+  });
+
+  worksheet["!cols"] = colWidths;
+
+  const workbook = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(workbook, worksheet, "Data");
+  
+  XLSX.writeFile(workbook, `${extraTools?.fileName}.xlsx`);
+  };
   
 
   return (
@@ -150,24 +223,21 @@ export function DataTable<T>({
           {/* Now passing props to the search component */}
           <DataTableSearch  />
           <FilterTagSpacer activeFilters={table.getState().columnFilters} table={table} />
-          {/* <DataTableFilter onFilterChange={(status) => {
-            const params = new URLSearchParams(searchParams.toString());
-            params.set("status", status);
-            navigate(`${pathname}?${params.toString()}`);
-          }} /> */}
+         
           
-
-          {filterComponent && filterComponent}
         </div>
 
         
 
         <div className="flex items-center gap-2">
-          {actionNode && actionNode}
+          {extraTools?.actionNode && extraTools?.actionNode}
           {/* Common Controls (Columns, Filters, View Toggle) */}
           <DataTableColumns table={table} />
           <DataTableFilter table={table} />
-          {toggleViewMode && 
+          <Button variant="outline" size="sm" className=" gap-2" onClick={() => handleExport()}>
+            <Download className="w-4 h-4" />
+          </Button>
+          {extraTools?.toggleViewMode && 
           (<div className="flex items-center border border-border rounded-md bg-background overflow-hidden h-9">
             <button
               onClick={() => setViewMode("list")}
@@ -267,7 +337,7 @@ export function DataTable<T>({
             ))}
           </tbody>
           {/* Conditionally Render Footer */}
-          {showFooter && (
+          {extraTools?.showFooter && (
             <tfoot className="bg-muted/30 border-t-2 border-border font-bold">
               {table.getFooterGroups().map((footerGroup) => (
                 <tr key={footerGroup.id}>
@@ -291,11 +361,11 @@ export function DataTable<T>({
       {/* Footer Controls */}
       <div className="flex items-center justify-between pt-2 border-t border-border">
         <DataTablePageSize />
-        <DataTablePagination totalPages={totalPages} currentPage={pageIndex + 1} />
+        <DataTablePagination totalPages={extraTools?.totalPages} currentPage={pageIndex + 1} />
       </div>
       </>
-      ) : gridComponent ? (
-            gridComponent(data)
+      ) : extraTools?.gridComponent ? (
+            extraTools.gridComponent(data)
           ) : (
             <div className="p-12 text-center text-muted-foreground border border-border border-dashed rounded-md bg-muted/20">
               Grid view not implemented for this component yet.

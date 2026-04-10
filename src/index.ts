@@ -94,9 +94,10 @@ export type {
   DragDropHeaderProp,
 } from "./ikoncomponents/data-table/type";
 
-export { DataTableLayout } from "./ikoncomponents/table";
-export type { DataTableLayoutProps, ColumnsProps } from "./ikoncomponents/table/type";
+// export { DataTableLayout } from "./ikoncomponents/table";
+// export type { DataTableLayoutProps, ColumnsProps } from "./ikoncomponents/table/type";
 export {Reload} from "./ikoncomponents/reload-component";
+export type { ReloadProps } from "./ikoncomponents/reload-component";
 export { EChart } from "./ikoncomponents/e-chart";
 export { FileInput } from "./ikoncomponents/file-input";
 export { GlowingEffect } from "./ikoncomponents/glowing-effect";
@@ -214,6 +215,9 @@ export type { ImageFormProps } from "./ikoncomponents/image-cropper-upload/compo
 export { WorkInProgress } from "./ikoncomponents/work-in-progress";
 export { CustomComboboxInput } from "./ikoncomponents/custom-combo-dropdown";
 export { AssistantComponent } from "./ikoncomponents/assistant-ui/Assistant";
+
+export type {DataTableLayoutProps , ExtraPrams , ColumnsProps } from "./ikoncomponents/table/type";
+export { DataTableLayout } from "./ikoncomponents/table";
 
 export { ThemeProvider } from "./utils/theme-provider";
 export { RadiusProvider, useRadius } from "./utils/border-radius-provider";

@@ -1,7 +1,7 @@
 import { useNavigate, useLocation, useSearchParams } from "react-router-dom";
 
 interface PaginationProps {
-  totalPages: number;
+  totalPages: number | undefined;
   currentPage: number;
 }
 
@@ -32,12 +32,12 @@ export function DataTablePagination({ totalPages, currentPage }: PaginationProps
       </button>
       <span className="text-sm text-muted-foreground px-2">
         Page <span className="font-semibold">{currentPage}</span> of{" "}
-        <span className="font-semibold">{Math.max(totalPages, 1)}</span>
+        <span className="font-semibold">{Math.max(totalPages ?? 1, 1)}</span>
       </span>
       <button
         type="button"
         onClick={() => handlePageChange(currentPage + 1)}
-        disabled={currentPage >= totalPages}
+        disabled={totalPages === undefined ? undefined : currentPage >= totalPages}
         className="h-9 px-3 py-1 text-sm font-medium border border-border rounded-md bg-background text-foreground hover:bg-muted disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
       >
         Next

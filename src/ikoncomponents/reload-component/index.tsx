@@ -1,7 +1,7 @@
 import { Loader2, RotateCcw } from "lucide-react";
 
 export interface ReloadProps {
-  isLoading: boolean;
+  isLoading: boolean | undefined;
   onReload?: () => void;
   errorMessage?: string;
 }

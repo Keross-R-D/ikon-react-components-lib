@@ -1,7 +1,7 @@
 {
   "name": "ikon-react-components-lib",
   "private": false,
-  "version": "1.0.4",
+  "version": "1.0.5",
   "type": "module",
   "main": "./dist/ikon-react-components-lib.cjs.js",
   "module": "./dist/ikon-react-components-lib.es.js",
@@ -82,6 +82,7 @@
     "use-debounce": "^10.1.1",
     "uuid": "^13.0.0",
     "vaul": "^1.1.2",
+    "xlsx": "^0.18.5",
     "zod": "^4.3.6",
     "zxcvbn": "^4.4.2"
   },
