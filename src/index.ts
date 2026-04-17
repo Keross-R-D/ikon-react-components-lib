@@ -40,6 +40,7 @@ export * from "./shadcn/ui/form";
 export * from "./shadcn/ui/input-otp";
 export * from "./shadcn/ui/toggle-group";
 export * from "./shadcn/ui/toggle";
+export * from "./shadcn/ui/workflow";
 
 export { ActionMenu } from "./ikoncomponents/action-menu";
 export type {
@@ -71,12 +72,12 @@ export type {
 export { DataTableColumnFilter } from "./ikoncomponents/data-table/datatable-column-filter";
 export { DataTableFacetedFilter } from "./ikoncomponents/data-table/datatable-faceted-filter";
 export { DataTableFilterMenu } from "./ikoncomponents/data-table/datatable-filter-menu";
-export { FileUploader } from "./ikoncomponents/fileUpload";
+export { FileUploader } from "./ikoncomponents/fileUpload_old";
 export {
   convertFileToObject,
   getImageFromObject,
-} from "./ikoncomponents/fileUpload/utils";
-export type { FileUploaderProps } from "./ikoncomponents/fileUpload";
+} from "./ikoncomponents/fileUpload_old/utils";
+export type { FileUploaderProps } from "./ikoncomponents/fileUpload_old";
 export { DataTablePagination } from "./ikoncomponents/data-table/datatable-pagination";
 export { DataTableToolbar } from "./ikoncomponents/data-table/datatable-toolbar";
 export { getDataTableColumnTitle } from "./ikoncomponents/data-table/function";
