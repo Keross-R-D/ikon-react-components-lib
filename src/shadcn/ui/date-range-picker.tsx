@@ -1,7 +1,8 @@
-import { type FC, useState, useEffect, JSX } from 'react'
+/* eslint-disable max-lines */
+import React, { type FC, useState, useEffect, JSX } from 'react'
 import { Popover, PopoverContent, PopoverTrigger } from './popover'
 import { Calendar } from './calendar'
-import { ChevronRightIcon, ChevronLeftIcon } from 'lucide-react' // Use these icons for the arrows in the header
+import { ChevronRightIcon, ChevronLeftIcon } from '@radix-ui/react-icons' // Use these icons for the arrows in the header
 import { Button } from './button'
 
 export interface DateRangePickerProps {

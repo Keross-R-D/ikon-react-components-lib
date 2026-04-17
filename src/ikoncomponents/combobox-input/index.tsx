@@ -20,9 +20,10 @@ export function ComboboxInput({
   onSelect,
   defaultValue
 }: ComboBoxInputProps) {
+  const [open, setOpen] = useState(false);
   const [value, setValue] = useState(defaultValue ?? '');
   return (
-    <Popover>
+    <Popover open={open} onOpenChange={setOpen} modal={true}>
       <PopoverTrigger asChild className="w-full">
         <Button
           variant="outline"
@@ -57,6 +58,7 @@ export function ComboboxInput({
                       )?.value ?? currentValue;
                     setValue(matched);
                     onSelect?.(matched);
+                    setOpen(false);
                   }}
                 >
                   {item?.label || item.value}
