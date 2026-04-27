@@ -9,6 +9,7 @@ lerna-debug.log*
 tsconfig.tsbuildinfo
 ikon-react-components-lib-1.0.7.tgz
 ikon-react-components-lib-1.0.8.tgz
+ikon-react-components-lib-1.0.5.tgz
 node_modules
 dist
 dist-ssr

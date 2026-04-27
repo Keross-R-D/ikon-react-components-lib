@@ -82,6 +82,7 @@
     "use-debounce": "^10.1.1",
     "uuid": "^13.0.0",
     "vaul": "^1.1.2",
+    "webfontloader": "^1.6.28",
     "xlsx": "^0.18.5",
     "zod": "^4.3.6",
     "zxcvbn": "^4.4.2"
@@ -94,6 +95,7 @@
     "@types/react": "^19.2.7",
     "@types/react-big-calendar": "^1.16.3",
     "@types/react-dom": "^19.2.3",
+    "@types/webfontloader": "^1.6.38",
     "@types/zxcvbn": "^4.4.5",
     "@vitejs/plugin-react": "^5.1.1",
     "autoprefixer": "^10.4.24",
