@@ -5,10 +5,23 @@ import { RadiusProvider } from "../../utils/border-radius-provider";
 import { BreadcrumbProvider } from "../app-breadcrumb/BreadcrumbProvider";
 import { MainLayout } from "../main-layout";
 import { RefreshProvider } from "../main-layout/RefreshContext";
-import { BrowserRouter } from "react-router";
+import { BrowserRouter, useInRouterContext } from "react-router";
 import { TanstackProvider } from "./TanstackProvider";
 import { UserProvider } from "../../utils/userContext";
 import { getConfig } from "../../utils/config";
+
+// Create a small helper component inside the same file
+function RouterGuard({ children }: { children: React.ReactNode }) {
+  const isInsideRouter = useInRouterContext();
+
+  // If we are already inside a Router (like your CustomRouterProvider),
+  // just return the children. Otherwise, wrap them in BrowserRouter.
+  if (isInsideRouter) {
+    return <>{children}</>;
+  }
+
+  return <BrowserRouter>{children}</BrowserRouter>;
+}
 
 export function ProviderWrapper({ children }: { children: React.ReactNode }) {
   const config = getConfig();
@@ -30,9 +43,11 @@ export function ProviderWrapper({ children }: { children: React.ReactNode }) {
             <RadiusProvider>
               <BreadcrumbProvider>
                 <RefreshProvider>
-                  <BrowserRouter>
+                  {/* <BrowserRouter> */}
+                  <RouterGuard>
                     <MainLayout>{children}</MainLayout>
-                  </BrowserRouter>
+                  </RouterGuard>
+                  {/* </BrowserRouter> */}
                 </RefreshProvider>
               </BreadcrumbProvider>
             </RadiusProvider>
