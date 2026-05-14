@@ -10,6 +10,9 @@ import { ColumnsProps } from "./ikoncomponents/table/type";
 import { data } from "./data";
 import { Workflow, type WorkflowStep } from "./shadcn/ui/workflow";
 import { ComboboxInput } from "./ikoncomponents/combobox-input";
+import { RenderSidebarNav } from "./ikoncomponents/main-layout/nav-main";
+import { Book, File, Heart, Trash, TreePine } from "lucide-react";
+import { SidebarNavItem } from "./ikoncomponents/main-layout/SidebarNavContext";
 
 setIkonConfig({
   IKON_BASE_API_URL: "https://ikoncloud-dev.keross.com/ikon-api",
@@ -122,6 +125,41 @@ function App() {
       setImgSrc(imgUrl);
     }
   };
+    const navItems: SidebarNavItem[] = [
+    {
+      title: "Deal",
+      url: "/deal",
+      icon: Book,
+      items: [
+        {
+          title: "Summary",
+          url: "/summary",
+          icon: File,
+          items: [
+            {
+              title: "Love",
+              url: "/love",
+              icon: Heart
+            },
+            {
+              title: "Life",
+              url: "/life",
+              icon: TreePine
+            }
+          ]
+        },
+        {
+          title: "Summary2",
+          url: "/summary2",
+          icon: File
+        },
+      ],
+    },
+    {
+      title: "Lead",
+      url: "/lead",
+    },
+  ];
   return (
     <>
       {/* 1. Inject a global style tag to catch Portals/Dropdowns*/}
@@ -133,7 +171,7 @@ function App() {
       {/* <div style={styles.poppins} className="min-h-screen"> */}
       <ProviderWrapper>
         <div>
-          {/* <RenderSidebarNav items={navMain} /> */}
+          <RenderSidebarNav items={navItems} />
           <div className="p-6">
             <div className="mb-8">
               <h2 className="text-2xl font-bold">File Upload Test</h2>
@@ -151,9 +189,10 @@ function App() {
                   toggleViewMode: true,
                   hiddenColumns: ["salesManager"],
                   fileName: "Lead_Data",
+                  actionNode: <Trash color=""/>
                 }}
               />
-
+              <Trash color="red"/>
               <ComboboxInput
                 items={[
                   { label: "Deal", value: "Deal" },
