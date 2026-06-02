@@ -13,6 +13,10 @@ import { ComboboxInput } from "./ikoncomponents/combobox-input";
 import { RenderSidebarNav } from "./ikoncomponents/main-layout/nav-main";
 import { Book, File, Heart, Trash, TreePine } from "lucide-react";
 import { SidebarNavItem } from "./ikoncomponents/main-layout/SidebarNavContext";
+import { CustomTabs } from "./ikoncomponents/tabs";
+import { TabArray } from "./ikoncomponents/tabs/type";
+import { Button } from "./shadcn/ui/button";
+import { Card, CardContent, CardHeader } from "./shadcn/ui/card";
 
 setIkonConfig({
   IKON_BASE_API_URL: "https://ikoncloud-dev.keross.com/ikon-api",
@@ -71,7 +75,6 @@ const columns: ColumnsProps<any>[] = [
   },
 ];
 
-  
 const salesPipeline: WorkflowStep[] = [
   {
     title: "Deal",
@@ -125,7 +128,7 @@ function App() {
       setImgSrc(imgUrl);
     }
   };
-    const navItems: SidebarNavItem[] = [
+  const navItems: SidebarNavItem[] = [
     {
       title: "Deal",
       url: "/deal",
@@ -139,25 +142,46 @@ function App() {
             {
               title: "Love",
               url: "/love",
-              icon: Heart
+              icon: Heart,
             },
             {
               title: "Life",
               url: "/life",
-              icon: TreePine
-            }
-          ]
+              icon: TreePine,
+            },
+          ],
         },
         {
           title: "Summary2",
           url: "/summary2",
-          icon: File
+          icon: File,
         },
       ],
     },
     {
       title: "Lead",
       url: "/lead",
+    },
+  ];
+
+  const tabArray: TabArray[] = [
+    {
+      tabId: "1",
+      tabName: "Tab 1",
+      default: true,
+      tabContent: <div><Button size={"sm"}>Tab 1</Button></div>,
+    },
+    {
+      tabId: "2",
+      tabName: "Tab 2",
+      default: false,
+      tabContent: <div><Button size={"sm"}>Tab 2</Button></div>,
+    },
+    {
+      tabId: "3",
+      tabName: "Tab 3",
+      default: false,
+      tabContent: <div><Button size={"sm"}>Tab 3</Button></div>,
     },
   ];
   return (
@@ -180,6 +204,8 @@ function App() {
               isDrag={true}
               onFileSelect={handleFileSelect}
             /> */}
+
+              <CustomTabs tabArray={tabArray} />
               <DataTableLayout
                 data={data}
                 columns={columns}
@@ -189,10 +215,15 @@ function App() {
                   toggleViewMode: true,
                   hiddenColumns: ["salesManager"],
                   fileName: "Lead_Data",
-                  actionNode: <Trash color=""/>
+                  actionNode: <Trash color="" />,
+                  gridComponent: (data) => {
+                      data.map((eachData) => <Card>
+                        <CardHeader>{eachData.leadName}</CardHeader>
+                      </Card>)
+                  },
                 }}
               />
-              <Trash color="red"/>
+              <Trash color="red" />
               <ComboboxInput
                 items={[
                   { label: "Deal", value: "Deal" },
