@@ -9,18 +9,32 @@ export function FormInput({ formControl, label, formDescription, extraFormCompon
       <FormField
         control={formControl}
         name={name}
-        render={({ field }) => (
-          <FormItem>
-            {label && <FormLabel>{label}</FormLabel>}
-            <FormControl>
-              <Input {...field} {...inputProps} />
-            </FormControl>
-            {extraFormComponent && extraFormComponent(field.value)}
-            {formDescription && <FormDescription>{formDescription}</FormDescription>}
-            <FormMessage />
-          </FormItem>
-        )}
+        render={({ field }) => {
+          const isNumberInput = inputProps.type === "number";
+          return (
+            <FormItem>
+              {label && <FormLabel>{label}</FormLabel>}
+              <FormControl>
+                <Input
+                  {...field}
+                  {...inputProps}
+                  onChange={(e) => {
+                    if (isNumberInput) {
+                      field.onChange(e.target.valueAsNumber);
+                    } else {
+                      field.onChange(e);
+                    }
+                  }}
+                />
+              </FormControl>
+              {extraFormComponent && extraFormComponent(field.value)}
+              {formDescription && <FormDescription>{formDescription}</FormDescription>}
+              <FormMessage />
+            </FormItem>
+          );
+        }}
       />
     </>
   )
 }
+

@@ -6,10 +6,13 @@ import { type FileObjType } from "./ikoncomponents/fileUpload_old";
 import { getImageFromObject } from "./ikoncomponents/fileUpload_old/utils";
 import { DataTableLayout } from "./ikoncomponents/table";
 import { useReactTable } from "@tanstack/react-table";
-import { ColumnsProps } from "./ikoncomponents/table/type";
+import { ColumnsProps, ExtraPrams } from "./ikoncomponents/table/type";
 import { data } from "./data";
 import { Workflow, type WorkflowStep } from "./shadcn/ui/workflow";
 import { ComboboxInput } from "./ikoncomponents/combobox-input";
+import { Delete, Edit, FileText, Home, ShoppingCart } from "lucide-react";
+import { RenderSidebarNav } from "./ikoncomponents/main-layout/nav-main";
+import { SidebarNavItem } from "./ikoncomponents/main-layout/SidebarNavContext";
 
 setIkonConfig({
   IKON_BASE_API_URL: "https://ikoncloud-dev.keross.com/ikon-api",
@@ -62,13 +65,10 @@ const columns: ColumnsProps<any>[] = [
     header: "Sales Manager",
     accessorKey: "salesManager",
   },
-  {
-    header: "Actions",
-    draggable: false,
-  },
 ];
 
-  
+const extraTools: ExtraPrams<T> = {};
+
 const salesPipeline: WorkflowStep[] = [
   {
     title: "Deal",
@@ -109,9 +109,29 @@ const salesPipeline: WorkflowStep[] = [
   },
 ];
 
+const navItems: SidebarNavItem[] = [
+  {
+    title: "Dashboard",
+    url: "/",
+    icon: Home,
+  },
+  {
+    title: "Requisitions",
+    url: "/requisitions",
+    icon: FileText,
+  },
+  {
+    title: "Purchase Orders",
+    url: "/purchase-orders",
+    icon: ShoppingCart,
+  },
+]
+
 function App() {
   // const [modalOpen, setModalOpen] = useState(false);
   const [imgSrc, setImgSrc] = useState<string | null>(null);
+  const length = data.length;
+  console.log("data length-->", length)
 
   const handleFileSelect = async (fileObj: FileObjType) => {
     console.log("Received File Object:", fileObj);
@@ -133,9 +153,9 @@ function App() {
       {/* <div style={styles.poppins} className="min-h-screen"> */}
       <ProviderWrapper>
         <div>
-          {/* <RenderSidebarNav items={navMain} /> */}
+          <RenderSidebarNav items={navItems} />
           <div className="p-6">
-            <div className="mb-8">
+            <div className="mb-8 space-y-4">
               <h2 className="text-2xl font-bold">File Upload Test</h2>
               {/* <FileUploader
               label="Upload Your File"
@@ -146,11 +166,29 @@ function App() {
                 data={data}
                 columns={columns}
                 extraTools={{
-                  totalPages: 2,
+                  totalPages: data.length/10,
                   // actionNode={<button >Add Lead</button>}
                   toggleViewMode: true,
                   hiddenColumns: ["salesManager"],
                   fileName: "Lead_Data",
+                  actionMenu: {
+                    items: [
+                      {
+                        label: "Edit",
+                        icon: Edit,
+                        onClick: () => {
+                          console.log("Edited");
+                        },
+                      },
+                      {
+                        label: "Delete",
+                        icon: Delete,
+                        onClick: () => {
+                          console.log("Deleted");
+                        },
+                      },
+                    ],
+                  },
                 }}
               />
 

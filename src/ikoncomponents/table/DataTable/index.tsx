@@ -14,7 +14,7 @@ import {
 } from "@tanstack/react-table";
 import * as XLSX from "xlsx";
 import { useSearchParams, useNavigate, useLocation } from "react-router-dom";
-import { ChevronDown, ChevronRight, ChevronUp, Download, LayoutGrid, List, Settings2, X } from "lucide-react";
+import { ChevronDown, ChevronRight, ChevronUp, Download, LayoutGrid, List, X } from "lucide-react";
 import { DataTableSearch } from "../DataTableSearch";
 import { DataTablePageSize } from "../DataTablePageSize";
 import { DataTablePagination } from "../DataTablePagination";
@@ -22,6 +22,7 @@ import { DataTableFilter, FilterTagSpacer } from "../DataTableFilter";
 import { DataTableColumns } from "../DataTableColumn";
 import { DataTableLayoutProps } from "../type";
 import { Button } from "@/shadcn/ui/button";
+import { ActionMenu } from "@/ikoncomponents/action-menu";
 
 // Assuming your converted components are in the same dire
 
@@ -63,6 +64,51 @@ export function DataTable<T>({
     }
   }
 
+    if (extraTools?.actionMenu || extraTools?.groupActionMenu) {
+      columns.push({
+        id: "DTActions",
+        accessorKey: "Actions",
+        header: () => <div className="text-center">Action</div>,
+        size: 20,
+        headerClassName: "text-center",
+        cell: ({ row }) => {
+          if (row.getIsGrouped()) {
+            return extraTools?.groupActionMenu ? (
+              <div className="text-end">
+                <ActionMenu
+                  actionMenus={extraTools.groupActionMenu.items}
+                  extraActionParams={{
+                    arguments: [
+                      row.original,
+                      ...(extraTools.groupActionMenu.extraArguments || []),
+                    ],
+                  }}
+                />
+              </div>
+            ) : null;
+          } else if (extraTools?.actionMenu) {
+            return (
+              <div className="text-center">
+                <ActionMenu
+                  actionMenus={extraTools.actionMenu.items}
+                  extraActionParams={{
+                    arguments: [
+                      row.original,
+                      ...(extraTools.actionMenu.extraArguments || []),
+                    ],
+                  }}
+                />
+              </div>
+            );
+          } else {
+            return null;
+          }
+        },
+        enableSorting: false,
+        enableHiding: false,
+      });
+    }
+
   // 3. Configure Table
   const table = useReactTable({
     data,
@@ -103,7 +149,7 @@ export function DataTable<T>({
     filterFns: {
       // Custom filter to check if row value exists in selected array
       multiSelect: (row, columnId, filterValue) => {
-      debugger
+      // debugger
 
         if (!filterValue.length) return true;
         return filterValue.includes(String(row.getValue(columnId)));
@@ -111,7 +157,7 @@ export function DataTable<T>({
     },
   });
   useEffect(() => {
-    debugger
+    // debugger
     
   table.getAllLeafColumns().map((column) => {
       if (hiddenColumns?.includes(column.id)) {
@@ -126,7 +172,7 @@ export function DataTable<T>({
   };
 
   const handleDrop = (e: React.DragEvent) => {
-    debugger
+    // debugger
     e.preventDefault();
     const headerId = e.dataTransfer.getData("headerId");
     if (headerId && !grouping.includes(headerId) && table.getColumn(headerId)?.getCanGroup()) {
@@ -136,7 +182,7 @@ export function DataTable<T>({
 
   useEffect(() => { 
     // Sync globalFilter to URL when it changes
-    debugger
+    // debugger
     table.setGlobalFilter(searchParams.get("search") || "");
   }, [searchParams, navigate, pathname]);
 
@@ -167,7 +213,7 @@ export function DataTable<T>({
         return [headerRow, ...processRows(row.subRows, level + 1)];
       } else {
         // 3. This is an actual Data Row (Leaf)
-        let rowData: Record<string, any> = {};
+        const rowData: Record<string, any> = {};
         visibleColumns.forEach((col) => {
           // Add indentation to the first column to show it belongs to the group above
           const value = row.getValue(col.id); 
@@ -184,7 +230,7 @@ export function DataTable<T>({
   const finalData = table.getState().grouping.length > 0
     ? processRows(table.getGroupedRowModel().rows)
     : table.getFilteredRowModel().rows.map(row => {
-        let rowData: Record<string, any> = {};
+        const rowData: Record<string, any> = {};
         visibleColumns.forEach(col => rowData[col.id] = row.getValue(col.id));
         return rowData;
       });
