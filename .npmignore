@@ -47,3 +47,7 @@ node_modules/
 # Build artifacts (keep only dist)
 .env
 .env.local
+
+# Ignore file-upload and file-upload copy folders
+src/utils/api/file-upload/
+src/utils/api/file-upload copy/
