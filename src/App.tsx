@@ -16,10 +16,8 @@ import { SidebarNavItem } from "./ikoncomponents/main-layout/SidebarNavContext";
 import { CustomTabs } from "./ikoncomponents/tabs";
 import { TabArray } from "./ikoncomponents/tabs/type";
 import { Button } from "./shadcn/ui/button";
-import { Card, CardContent, CardHeader } from "./shadcn/ui/card";
+import { Card, CardHeader } from "./shadcn/ui/card";
 import { Delete, Edit, FileText, Home, ShoppingCart } from "lucide-react";
-import { RenderSidebarNav } from "./ikoncomponents/main-layout/nav-main";
-import { SidebarNavItem } from "./ikoncomponents/main-layout/SidebarNavContext";
 
 setIkonConfig({
   IKON_BASE_API_URL: "https://ikoncloud-dev.keross.com/ikon-api",
@@ -43,7 +41,6 @@ const columns: ColumnsProps<any>[] = [
     header: "Contact No",
     accessorKey: "orgContactNo",
     cell: (row) => {
-      debugger;
       return <span>{row.getValue() || "n/a"}</span>;
     },
     footer: ({ table }) => {
@@ -216,7 +213,7 @@ function App() {
       {/* <div style={styles.poppins} className="min-h-screen"> */}
       <ProviderWrapper>
         <div>
-          <RenderSidebarNav items={navItems} />
+          <RenderSidebarNav items={navItems} sidebarAppTitle="IKON COMPONENT" sidebarHeader={<Button>Hello</Button>}/>
           <div className="p-6">
             <div className="mb-8 space-y-4">
               <h2 className="text-2xl font-bold">File Upload Test</h2>

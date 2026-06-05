@@ -149,26 +149,31 @@ export function NavMain() {
 // Helper component to set nav items from pages
 export function RenderSidebarNav({
   items,
+  sidebarAppTitle,
   sidebarHeader,
   sidebarFooter,
 }: {
   items: SidebarNavItem[];
+  sidebarAppTitle: string;
   sidebarHeader?: ReactNode;
   sidebarFooter?: ReactNode;
 }) {
-  const { setNavItems, setSidebarHeader, setSidebarFooter } = useSidebarNav();
+  const { setNavItems, setSidebarHeader, setSidebarFooter, setSidebarAppTitle } = useSidebarNav();
 
   useEffect(() => {
     setNavItems(items);
     setSidebarHeader(sidebarHeader);
     setSidebarFooter(sidebarFooter);
+    setSidebarAppTitle(sidebarAppTitle);
   }, [
     items,
+    sidebarAppTitle,
     sidebarHeader,
     sidebarFooter,
     setNavItems,
     setSidebarHeader,
     setSidebarFooter,
+    setSidebarAppTitle
   ]);
 
   return null;
