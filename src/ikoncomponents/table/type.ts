@@ -1,13 +1,11 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { ActionMenuProps } from "../action-menu/type";
 
-
 export interface DataTableLayoutProps<T> {
   data: T[];
   columns: ColumnsProps<T, unknown>[];
   extraTools?: ExtraPrams<T>;
-  
-};
+}
 
 export type ExtraPrams<T> = {
   totalPages: number;
@@ -24,19 +22,17 @@ export type ExtraPrams<T> = {
   fileName?: string;
 };
 
-export type ColumnsProps<TData, TValue = unknown> = ColumnDef<
-  TData,
-  TValue
-> & {
+export type ColumnsProps<TData, TValue = unknown> = ColumnDef<TData, TValue> & {
   header: string | (() => React.ReactNode);
-  accessorKey?: keyof TData;
-  cell?: (row: TData) => React.ReactNode;
+  // accessorKey?: keyof TData;
+  //cell?: (row: TData) => React.ReactNode;
   footer?: (row: TData) => React.ReactNode;
-  filterFns? : string | "multiSelect";
+  filterFns?: string | "multiSelect";
   draggable?: boolean | undefined;
+  headerClassName?: string;
 };
 
-export type TableActionMenuProps  = {
+export type TableActionMenuProps = {
   items: ActionMenuProps[];
   extraArguments?: any[];
-}
+};

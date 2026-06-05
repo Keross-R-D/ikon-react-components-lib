@@ -71,6 +71,7 @@ export function DataTable<T>({
         header: () => <div className="text-center">Action</div>,
         size: 20,
         headerClassName: "text-center",
+        
         cell: ({ row }) => {
           if (row.getIsGrouped()) {
             return extraTools?.groupActionMenu ? (
