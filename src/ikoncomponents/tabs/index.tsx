@@ -1,4 +1,3 @@
-"use client";
 import type { TabArray, TabProps } from "./type";
 import {
   Tabs as TabsComp,
@@ -15,7 +14,7 @@ import {
 import { EllipsisVertical } from "lucide-react";
 import { TextButton } from "../buttons";
 import { Card } from "../../shadcn/ui/card";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useIsMobile } from "../../shadcn/hooks/use-mobile";
 
 

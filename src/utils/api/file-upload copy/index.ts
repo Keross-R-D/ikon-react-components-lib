@@ -61,7 +61,7 @@ export const fileUpload = async (
 ) => {
   try {
     const accessToken = await getValidAccessToken(
-      process.env.IKON_API_URL || "",
+      // process.env.IKON_API_URL || "",
     );
     console.log("Uploading files:", fileObjArray);
 

@@ -1,4 +1,5 @@
-import { useReactTable, ColumnDef } from "@tanstack/react-table";
+import { ColumnDef } from "@tanstack/react-table";
+import { ActionMenuProps } from "../action-menu/type";
 
 
 export interface DataTableLayoutProps<T> {
@@ -13,6 +14,8 @@ export type ExtraPrams<T> = {
   toggleViewMode?: boolean;
   hiddenColumns?: string[];
   actionNode?: React.ReactNode;
+  actionMenu?: TableActionMenuProps;
+  groupActionMenu?: TableActionMenuProps;
   gridComponent?: (data: T[]) => React.ReactNode;
   isLoading?: boolean;
   onReload?: () => void;
@@ -32,3 +35,8 @@ export type ColumnsProps<TData, TValue = unknown> = ColumnDef<
   filterFns? : string | "multiSelect";
   draggable?: boolean | undefined;
 };
+
+export type TableActionMenuProps  = {
+  items: ActionMenuProps[];
+  extraArguments?: any[];
+}

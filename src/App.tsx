@@ -6,10 +6,18 @@ import { type FileObjType } from "./ikoncomponents/fileUpload_old";
 import { getImageFromObject } from "./ikoncomponents/fileUpload_old/utils";
 import { DataTableLayout } from "./ikoncomponents/table";
 import { useReactTable } from "@tanstack/react-table";
-import { ColumnsProps } from "./ikoncomponents/table/type";
+import { ColumnsProps, ExtraPrams } from "./ikoncomponents/table/type";
 import { data } from "./data";
 import { Workflow, type WorkflowStep } from "./shadcn/ui/workflow";
 import { ComboboxInput } from "./ikoncomponents/combobox-input";
+import { RenderSidebarNav } from "./ikoncomponents/main-layout/nav-main";
+import { Book, File, Heart, Trash, TreePine } from "lucide-react";
+import { SidebarNavItem } from "./ikoncomponents/main-layout/SidebarNavContext";
+import { CustomTabs } from "./ikoncomponents/tabs";
+import { TabArray } from "./ikoncomponents/tabs/type";
+import { Button } from "./shadcn/ui/button";
+import { Card, CardHeader } from "./shadcn/ui/card";
+import { Delete, Edit, FileText, Home, ShoppingCart } from "lucide-react";
 
 setIkonConfig({
   IKON_BASE_API_URL: "https://ikoncloud-dev.keross.com/ikon-api",
@@ -33,7 +41,6 @@ const columns: ColumnsProps<any>[] = [
     header: "Contact No",
     accessorKey: "orgContactNo",
     cell: (row) => {
-      debugger;
       return <span>{row.getValue() || "n/a"}</span>;
     },
     footer: ({ table }) => {
@@ -62,13 +69,10 @@ const columns: ColumnsProps<any>[] = [
     header: "Sales Manager",
     accessorKey: "salesManager",
   },
-  {
-    header: "Actions",
-    draggable: false,
-  },
 ];
 
-  
+const extraTools: ExtraPrams<T> = {};
+
 const salesPipeline: WorkflowStep[] = [
   {
     title: "Deal",
@@ -109,9 +113,29 @@ const salesPipeline: WorkflowStep[] = [
   },
 ];
 
+const navItems: SidebarNavItem[] = [
+  {
+    title: "Dashboard",
+    url: "/",
+    icon: Home,
+  },
+  {
+    title: "Requisitions",
+    url: "/requisitions",
+    icon: FileText,
+  },
+  {
+    title: "Purchase Orders",
+    url: "/purchase-orders",
+    icon: ShoppingCart,
+  },
+]
+
 function App() {
   // const [modalOpen, setModalOpen] = useState(false);
   const [imgSrc, setImgSrc] = useState<string | null>(null);
+  const length = data.length;
+  console.log("data length-->", length)
 
   const handleFileSelect = async (fileObj: FileObjType) => {
     console.log("Received File Object:", fileObj);
@@ -122,6 +146,62 @@ function App() {
       setImgSrc(imgUrl);
     }
   };
+  const navItems: SidebarNavItem[] = [
+    {
+      title: "Deal",
+      url: "/deal",
+      icon: Book,
+      items: [
+        {
+          title: "Summary",
+          url: "/summary",
+          icon: File,
+          items: [
+            {
+              title: "Love",
+              url: "/love",
+              icon: Heart,
+            },
+            {
+              title: "Life",
+              url: "/life",
+              icon: TreePine,
+            },
+          ],
+        },
+        {
+          title: "Summary2",
+          url: "/summary2",
+          icon: File,
+        },
+      ],
+    },
+    {
+      title: "Lead",
+      url: "/lead",
+    },
+  ];
+
+  const tabArray: TabArray[] = [
+    {
+      tabId: "1",
+      tabName: "Tab 1",
+      default: true,
+      tabContent: <div><Button size={"sm"}>Tab 1</Button></div>,
+    },
+    {
+      tabId: "2",
+      tabName: "Tab 2",
+      default: false,
+      tabContent: <div><Button size={"sm"}>Tab 2</Button></div>,
+    },
+    {
+      tabId: "3",
+      tabName: "Tab 3",
+      default: false,
+      tabContent: <div><Button size={"sm"}>Tab 3</Button></div>,
+    },
+  ];
   return (
     <>
       {/* 1. Inject a global style tag to catch Portals/Dropdowns*/}
@@ -133,27 +213,53 @@ function App() {
       {/* <div style={styles.poppins} className="min-h-screen"> */}
       <ProviderWrapper>
         <div>
-          {/* <RenderSidebarNav items={navMain} /> */}
+          <RenderSidebarNav items={navItems} sidebarAppTitle="IKON COMPONENT" sidebarHeader={<Button>Hello</Button>}/>
           <div className="p-6">
-            <div className="mb-8">
+            <div className="mb-8 space-y-4">
               <h2 className="text-2xl font-bold">File Upload Test</h2>
               {/* <FileUploader
               label="Upload Your File"
               isDrag={true}
               onFileSelect={handleFileSelect}
             /> */}
+
+              <CustomTabs tabArray={tabArray} />
               <DataTableLayout
                 data={data}
                 columns={columns}
                 extraTools={{
-                  totalPages: 2,
+                  totalPages: data.length/10,
                   // actionNode={<button >Add Lead</button>}
                   toggleViewMode: true,
                   hiddenColumns: ["salesManager"],
                   fileName: "Lead_Data",
+                  actionMenu: {
+                    items: [
+                      {
+                        label: "Edit",
+                        icon: Edit,
+                        onClick: () => {
+                          console.log("Edited");
+                        },
+                      },
+                      {
+                        label: "Delete",
+                        icon: Delete,
+                        onClick: () => {
+                          console.log("Deleted");
+                        },
+                      },
+                    ],
+                  },
+                  actionNode: <Trash color="" />,
+                  gridComponent: (data) => {
+                      data.map((eachData) => <Card>
+                        <CardHeader>{eachData.leadName}</CardHeader>
+                      </Card>)
+                  },
                 }}
               />
-
+              <Trash color="red" />
               <ComboboxInput
                 items={[
                   { label: "Deal", value: "Deal" },

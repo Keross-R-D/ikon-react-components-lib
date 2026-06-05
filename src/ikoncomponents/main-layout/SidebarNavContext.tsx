@@ -27,6 +27,7 @@ export interface SidebarNavItem {
 export interface SidebarNavContextType {
   navItems: SidebarNavItem[];
   header: ReactNode | null;
+  appTitle: string;
   footer: ReactNode | null;
   setNavItems: (items: SidebarNavItem[]) => void;
   addNavItem: (item: SidebarNavItem) => void;
@@ -35,6 +36,7 @@ export interface SidebarNavContextType {
   clearNavItems: () => void;
   setSidebarHeader: (header: ReactNode) => void;
   setSidebarFooter: (footer: ReactNode) => void;
+  setSidebarAppTitle: (appTitle: string) => void;
 }
 
 const SidebarNavContext = createContext<SidebarNavContextType | undefined>(
@@ -45,6 +47,7 @@ export function SidebarNavProvider({ children }: { children: ReactNode }) {
   const [navItems, setNavItems] = useState<SidebarNavItem[]>([]);
   const [header, setHeader] = useState<ReactNode | null>(null);
   const [footer, setFooter] = useState<ReactNode | null>(null);
+  const [appTitle, setAppTitle] = useState<string>("");
 
   const addNavItem = (item: SidebarNavItem) => {
     setNavItems((prevItems) => {
@@ -79,6 +82,10 @@ export function SidebarNavProvider({ children }: { children: ReactNode }) {
     setFooter(footer);
   };
 
+  const setSidebarAppTitle = (appTitle: string) => {
+    setAppTitle(appTitle);
+  }
+
   const clearNavItems = () => {
     setNavItems([]);
   };
@@ -89,6 +96,7 @@ export function SidebarNavProvider({ children }: { children: ReactNode }) {
         navItems,
         header,
         footer,
+        appTitle,
         setNavItems,
         addNavItem,
         removeNavItem,
@@ -96,6 +104,7 @@ export function SidebarNavProvider({ children }: { children: ReactNode }) {
         clearNavItems,
         setSidebarHeader,
         setSidebarFooter,
+        setSidebarAppTitle
       }}
     >
       {children}

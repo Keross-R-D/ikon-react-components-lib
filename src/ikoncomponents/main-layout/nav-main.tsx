@@ -41,6 +41,7 @@ export function NavMain() {
       <SidebarMenuSub>
         {nodes.map((node) => {
           const hasChildren = !!node.items?.length;
+          const Icon = node.icon;
           if (hasChildren) {
             const active = isNodeActive(node);
             return (
@@ -53,6 +54,7 @@ export function NavMain() {
                 <SidebarMenuSubItem>
                   <CollapsibleTrigger asChild>
                     <SidebarMenuSubButton isActive={active}>
+                      {Icon && <Icon />}
                       <span>{node.title}</span>
                       <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
                     </SidebarMenuSubButton>
@@ -65,6 +67,7 @@ export function NavMain() {
             );
           }
           const leafActive = isHrefActive(node.url);
+          
           return (
             <SidebarMenuSubItem key={node.title}>
               <SidebarMenuSubButton
@@ -73,6 +76,7 @@ export function NavMain() {
                 aria-current={leafActive ? "page" : undefined}
               >
                 <Link to={node.url || "#"}>
+                {Icon && <Icon />}
                   <span>{node.title}</span>
                 </Link>
               </SidebarMenuSubButton>
@@ -145,26 +149,31 @@ export function NavMain() {
 // Helper component to set nav items from pages
 export function RenderSidebarNav({
   items,
+  sidebarAppTitle,
   sidebarHeader,
   sidebarFooter,
 }: {
   items: SidebarNavItem[];
+  sidebarAppTitle: string;
   sidebarHeader?: ReactNode;
   sidebarFooter?: ReactNode;
 }) {
-  const { setNavItems, setSidebarHeader, setSidebarFooter } = useSidebarNav();
+  const { setNavItems, setSidebarHeader, setSidebarFooter, setSidebarAppTitle } = useSidebarNav();
 
   useEffect(() => {
     setNavItems(items);
     setSidebarHeader(sidebarHeader);
     setSidebarFooter(sidebarFooter);
+    setSidebarAppTitle(sidebarAppTitle);
   }, [
     items,
+    sidebarAppTitle,
     sidebarHeader,
     sidebarFooter,
     setNavItems,
     setSidebarHeader,
     setSidebarFooter,
+    setSidebarAppTitle
   ]);
 
   return null;
