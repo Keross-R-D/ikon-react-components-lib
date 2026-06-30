@@ -215,12 +215,12 @@ export { NewImageForm } from "./ikoncomponents/image-cropper-upload/components/n
 export type { ImageFormProps } from "./ikoncomponents/image-cropper-upload/components/newImageUploadForm";
 export { WorkInProgress } from "./ikoncomponents/work-in-progress";
 export { CustomComboboxInput } from "./ikoncomponents/custom-combo-dropdown";
-export { AssistantComponent } from "./ikoncomponents/assistant-ui/Assistant";
+// export { AssistantComponent } from "./ikoncomponents/assistant-ui/Assistant";
 
 export type {DataTableLayoutProps , ExtraPrams , ColumnsProps } from "./ikoncomponents/table/type";
 export { DataTableLayout } from "./ikoncomponents/table";
 
-export { ThemeProvider } from "./utils/theme-provider";
+export { ThemeProvider } from "./utils/theme-provider"; 
 export { RadiusProvider, useRadius } from "./utils/border-radius-provider";
 export { FontProvider, useFont } from "./utils/font-provider";
 export { cn } from "./shadcn/lib/utils";

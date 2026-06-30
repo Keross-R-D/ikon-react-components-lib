@@ -11,14 +11,29 @@ import { clearTokensAndLogout } from "../../utils/token-management";
 import { useProfileQuery } from "../../utils/api/platformServiceQuery";
 import { getConfig } from "../../utils/config";
 import { useUser } from "../../utils/userContext";
+import { cn } from "../../shadcn/lib/utils";
+import { useSidebarExpanded } from "./sidebar-expanded-context";
 
 function UserAvatar() {
   const { user, setUser } = useUser();
+  const expanded = useSidebarExpanded();
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon" className="h-10 w-10">
-          <CircleUserRound className="h-8 w-8" />
+        <Button
+          variant="ghost"
+          size="icon"
+          className={cn(
+            "h-10",
+            expanded ? "w-full justify-start gap-3 px-3" : "w-10"
+          )}
+        >
+          <CircleUserRound className="h-8 w-8 shrink-0" />
+          {expanded && (
+            <span className="truncate text-sm font-medium">
+              {user?.userName || "Profile"}
+            </span>
+          )}
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-55 p-0" side={"right"} sideOffset={8}>

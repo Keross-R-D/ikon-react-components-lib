@@ -8,15 +8,21 @@ import { IconButtonWithTooltip, IconTextButton } from "../buttons";
 import { useSidebarNav } from "./SidebarNavContext";
 import { Link } from "react-router";
 import { getConfig } from "../../utils/config";
+import { useSidebarExpanded } from "./sidebar-expanded-context";
+import { cn } from "../../shadcn/lib/utils";
 
 export function Header() {
 
   const { navItems } = useSidebarNav();
   const {IKON_PLATFORM_UI_URL}=getConfig();
+  const expanded = useSidebarExpanded();
 
 
   return (
-    <header className="ml-12 flex h-12 border-b shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
+    <header className={cn(
+      "flex h-12 border-b shrink-0 items-center gap-2 transition-[margin,width,height] duration-200 ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12",
+      expanded ? "ml-56" : "ml-12"
+    )}>
       <div className="flex items-center justify-between gap-2 px-4 w-full">
         <div className="flex items-center gap-2">
           {(!navItems || navItems.length === 0) ? <div></div> : <SidebarTrigger className="-ml-1" />}

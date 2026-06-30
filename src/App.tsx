@@ -11,7 +11,7 @@ import { data } from "./data";
 import { Workflow, type WorkflowStep } from "./shadcn/ui/workflow";
 import { ComboboxInput } from "./ikoncomponents/combobox-input";
 import { RenderSidebarNav } from "./ikoncomponents/main-layout/nav-main";
-import { Book, File, Heart, Trash, TreePine } from "lucide-react";
+import { Book, Car, File, Heart, Trash, TreePine } from "lucide-react";
 import { SidebarNavItem } from "./ikoncomponents/main-layout/SidebarNavContext";
 import { CustomTabs } from "./ikoncomponents/tabs";
 import { TabArray } from "./ikoncomponents/tabs/type";
@@ -29,8 +29,6 @@ const columns: ColumnsProps<any>[] = [
   {
     header: "Lead Name",
     accessorKey: "leadName",
-    footer: ({ table }: { table: ReturnType<typeof useReactTable> }) =>
-      table.options.meta?.footerLabel || "Total",
   },
   {
     header: "Email",
@@ -43,14 +41,7 @@ const columns: ColumnsProps<any>[] = [
     cell: (row) => {
       return <span>{row.getValue() || "n/a"}</span>;
     },
-    footer: ({ table }) => {
-      const rows = table.getFilteredRowModel().rows;
-      const sum = rows.reduce(
-        (acc, row) => acc + (Number(row.getValue("orgContactNo")) || 0),
-        0,
-      );
-      return sum.toLocaleString();
-    },
+    
   },
   {
     header: "No. of Employees",
@@ -228,11 +219,25 @@ function App() {
                 data={data}
                 columns={columns}
                 extraTools={{
-                  totalPages: data.length/10,
-                  // actionNode={<button >Add Lead</button>}
+                  tableHeight: "400px",
+                  // totalPages: data.length/10,
+                  grouping: true,                  
+                  actionNode:[ <Trash color="white" />],
                   toggleViewMode: true,
                   hiddenColumns: ["salesManager"],
                   fileName: "Lead_Data",
+                  showFooter: true,
+                  footerRows: [
+                    { cells: {
+                          leadName: "Total",
+                          noOfEmployees: { aggregate: "sum" },
+                      }},
+                       { cells: {
+                        leadName: "Average employees",
+                        orgContactNo: { aggregate: "avg", decimals: 1 },
+                    }},
+                    ],
+
                   actionMenu: {
                     items: [
                       {
@@ -251,15 +256,17 @@ function App() {
                       },
                     ],
                   },
-                  actionNode: <Trash color="" />,
                   gridComponent: (data) => {
-                      data.map((eachData) => <Card>
+                    return data.map((eachData) => <Card>
                         <CardHeader>{eachData.leadName}</CardHeader>
+                        <CardHeader>{eachData.email}</CardHeader>
+                        <CardHeader>{eachData.orgContactNo}</CardHeader>
+                        <CardHeader>{eachData.noOfEmployees}</CardHeader>
                       </Card>)
                   },
                 }}
               />
-              <Trash color="red" />
+              {/* <Trash color="red" /> */}
               <ComboboxInput
                 items={[
                   { label: "Deal", value: "Deal" },

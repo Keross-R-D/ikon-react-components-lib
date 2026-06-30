@@ -10,11 +10,14 @@ import type { AccountMembership } from "./main-sidebar";
 import { useUser } from "@/utils/userContext";
 import { Check } from "lucide-react";
 import { useEffect } from "react";
+import { cn } from "@/shadcn/lib/utils";
+import { useSidebarExpanded } from "./sidebar-expanded-context";
 
 
 function Accounts() {
     const { data:accounts } = useAccountMembership();
-    const {user, setAccountName} = useUser();    
+    const {user, setAccountName} = useUser();
+    const expanded = useSidebarExpanded();
     const getInitials = (name: string) => {
         
       return name ? name
@@ -40,12 +43,20 @@ function Accounts() {
       <DropdownMenuTrigger asChild>
         <Button
           variant="default"
-          className="mb-4 h-8 w-8 rounded-lg p-0"
+          className={cn(
+            "mb-4 h-8 rounded-lg",
+            expanded ? "w-full justify-start gap-3 px-2" : "w-8 p-0"
+          )}
           disabled={!user?.accountName}
         >
-          <span className="text-base font-medium text-accent-background">
+          <span className="flex h-6 w-6 shrink-0 items-center justify-center text-base font-medium text-accent-background">
             {user ? getInitials(user.accountName!) : "..."}
           </span>
+          {expanded && (
+            <span className="truncate text-sm font-medium">
+              {user?.accountName || "Account"}
+            </span>
+          )}
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent
